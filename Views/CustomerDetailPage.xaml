@@ -70,30 +70,30 @@
         <!-- Scrollable Content -->
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="10" Padding="10">
-                <Entry
-                    BackgroundColor="LightGrey"
-                    Placeholder="Enter new reading here"
-                    HorizontalOptions="FillAndExpand"
-                    IsTextPredictionEnabled="True"
-                    IsSpellCheckEnabled="True"
-                    Text="{Binding VmReading.C_reading}"
-                    Keyboard="Numeric"
-                    Margin="15" />      
-
+                <!-- New Reading -->
+                <Frame BackgroundColor="White" CornerRadius="12" Padding="10" HasShadow="True">
+                    <Entry Placeholder="Enter new reading here"
+                           Keyboard="Numeric"
+                           Text="{Binding VmReading.C_reading}"
+                           FontSize="16"
+                           BackgroundColor="#f2f2f2"
+                           HeightRequest="50"/>
+                </Frame>
 
                 <toolkit:Expander>
                     <toolkit:Expander.Header>
-                        <Label HorizontalOptions="Center" Text="Leave a comment..." FontAttributes="Italic" FontSize="Medium"/>
+                        <Label Text="Leave a comment..." FontAttributes="Italic" FontSize="Medium" />
                     </toolkit:Expander.Header>
-                    <StackLayout Padding="10" Spacing="5">
-                        <Entry BackgroundColor="WhiteSmoke" Placeholder="Enter comment here..." WidthRequest="250" HeightRequest="75" Text="{Binding VmReading.Comment}" IsTextPredictionEnabled="True" IsSpellCheckEnabled="True" />
-                        <Border Style="{StaticResource iconBtnContainer}">
-                            <Image Source="camera_icon.jpg" />
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding TakePhotoClickedCommand}" />
-                            </Border.GestureRecognizers>
-                        </Border>
-                    </StackLayout>
+                    <Frame BackgroundColor="White" Padding="10" CornerRadius="10" HasShadow="True">
+                        <VerticalStackLayout Spacing="10">
+                            <Editor Placeholder="Enter comment here..." AutoSize="TextChanges" Text="{Binding VmReading.Comment}" />
+                            <Image Source="camera_icon.jpg" HeightRequest="40" WidthRequest="40">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding TakePhotoClickedCommand}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </VerticalStackLayout>
+                    </Frame>
                 </toolkit:Expander>
 
                 <Button
@@ -116,7 +116,7 @@
             </StackLayout>
         </ScrollView>
 
-        <Button Grid.Row="2" CornerRadius="20" Text="Go Back" Command="{Binding GoBackCommand}" />
+        <Button TextColor="White" BackgroundColor="Gray" Grid.Row="2" CornerRadius="20" Text="Go Back" Command="{Binding GoBackCommand}" />
     </Grid>
 
 </ContentPage>

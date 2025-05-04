@@ -18,8 +18,5 @@
                 HeightRequest="350"
                 WidthRequest="350"
                 HorizontalOptions="Center" />
-       
-
-
     </Grid>
 </ContentPage>

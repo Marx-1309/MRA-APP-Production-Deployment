@@ -1,16 +1,9 @@
 ﻿
+using SampleMauiMvvmApp.Interfaces;
+
 namespace SampleMauiMvvmApp.Services
 {
-    public interface INoteService
-    {
-        Task<int> AddNote(Notes readingModel);
-        Task<bool> CheckExistingNoteListById(int Id);
-        Task<int> DeleteNote(Notes readingModel);
-        Task<List<Notes>> GetNotesList();
-        Task<int> UpdateNote(Notes readingModel);
-    }
-
-    public class NotesService : INoteService
+    public class NotesService : INotesService
     {
         protected readonly DbContext _dbConnection;
         public NotesService(DbContext dbContext)

@@ -4,73 +4,70 @@
              x:Class="SampleMauiMvvmApp.Views.MenuPage"
              xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
              Title="Menu"
-             >
+             BackgroundColor="Transparent"
+             NavigationPage.HasNavigationBar="False">
 
-    <Grid ColumnDefinitions="*"
-          RowDefinitions="*,Auto"
-          Padding="10">
-        <CollectionView Grid.Row="0" ItemsSource="{Binding Menus}">
+    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
 
-            <!--<CollectionView.Header>
-        <Frame BackgroundColor="Black">
-            <Label Text="STEELERS"
-                   FontFamily="Anton-Regular.tff"
-                   FontAttributes="Bold"
-                   FontSize="Title"
-                   HorizontalOptions="Center"
-                   TextColor="Gold"/>
-        </Frame>
-    </CollectionView.Header>-->
+        <!-- Zoomed-in Fullscreen Background Image -->
+        <Image Source="loading_wallpaper.jpg"
+               Aspect="AspectFill"
+               Scale="1.5"
+               Grid.RowSpan="3"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
 
-            <!--<CollectionView.Footer>
-        <Frame BackgroundColor="Black">
-            <Label Text="2023 TEAM ROSTER"
-                   FontFamily="Anton-Regular.tff"
-                   FontAttributes="Bold"
-                   FontSize="Title"
-                   HorizontalOptions="Center"
-                   TextColor="Gold"/>
-        </Frame>
-    </CollectionView.Footer>-->
-
+        <!-- Menu CollectionView -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Menus}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"/>
+                <GridItemsLayout Orientation="Vertical" Span="2"/>
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame HorizontalOptions="Center" VerticalOptions="StartAndExpand" WidthRequest="350" Margin="20"  BackgroundColor="WhiteSmoke">
+                    <Frame Padding="10"
+                           Margin="10"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="True">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer 
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MenuViewModel}}, Path=GoToDetailsCommand}"
-                            CommandParameter="{Binding .}"/>
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MenuViewModel}}, Path=GoToDetailsCommand}"
+                                CommandParameter="{Binding .}" />
                         </Frame.GestureRecognizers>
 
-                        <StackLayout >
+                        <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                             <Image WidthRequest="100"
                                    HeightRequest="100"
-                                   Source="{Binding Image}">
-                            </Image>
-
+                                   Aspect="AspectFill"
+                                   Source="{Binding Image}" />
                             <Label Text="{Binding Name}"
-                               FontFamily="Anton-Regular.tff"
-                               FontAttributes="Bold"
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
-
-                        </StackLayout>
+                                   FontFamily="Anton-Regular.tff"
+                                   FontAttributes="Bold"
+                                   FontSize="16"
+                                   HorizontalOptions="Center"
+                                   TextColor="Black"/>
+                        </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            
         </CollectionView>
-        <Button Grid.Row="1"
-                FontAttributes="Bold"
-                BackgroundColor="Red"
-                Text="Logout"
-                Command="{Binding ConfirmLogoutCommand}"
-                ></Button>
-    </Grid>
-    
 
+        <!-- Logout Button -->
+        <VerticalStackLayout Grid.Row="2" Spacing="10" Padding="0" Margin="10,0,10,10">
+            <Button Text="Logout"
+                    FontAttributes="Bold"
+                    BackgroundColor="IndianRed"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Command="{Binding ConfirmLogoutCommand}" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
+
+
+
+
+
+

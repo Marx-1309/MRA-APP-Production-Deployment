@@ -1,16 +1,8 @@
 ﻿
+using SampleMauiMvvmApp.Interfaces;
+
 namespace SampleMauiMvvmApp.Services
 {
-    public interface IMonthService
-    {
-        Task<int?> GetLatestExportItemMonthId();
-        Task<string> GetLatestExportItemMonthName();
-        Task<List<Month>> GetListOfMonthsFromSql();
-        Task<List<Month>> GetListOfMonthsFromSqlite();
-        Task<string> GetMonthNameById();
-        Task<List<Month>> GetMonths();
-        Task<List<Reading>> GetReadingsByMonthIdAsync(int MonthId);
-    }
 
     public partial class MonthService : BaseService, IMonthService
     {
@@ -175,7 +167,7 @@ namespace SampleMauiMvvmApp.Services
             try
             {
                 var listOfMonths = await dbContext.Database.Table<Month>().ToListAsync();
-
+                
                 if (listOfMonths.Count == 0)
                 {
                     await GetListOfMonthsFromSql();

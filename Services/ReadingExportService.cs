@@ -3,15 +3,6 @@ using System.Net.NetworkInformation;
 
 namespace SampleMauiMvvmApp.Services
 {
-    public interface IReadingExportService
-    {
-        Task<List<ReadingExport>> CheckForNewExportInSql();
-        Task CheckNewExports();
-        Task DeleteOldReadings();
-        Task GetLatestExportItemIntoSqlite();
-        Task ScanForNewExports();
-    }
-
     public class ReadingExportService 
     {
         HttpClient _httpClient;
@@ -118,10 +109,6 @@ namespace SampleMauiMvvmApp.Services
                         }
                         //CustomerList = sqliteCustomerList.Concat(newCustomersNotInSQLite).ToList();
                     }
-
-
-
-
                 }
                 return;
 
@@ -728,6 +715,4 @@ namespace SampleMauiMvvmApp.Services
             }
         }
     }
-
-
 }

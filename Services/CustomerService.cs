@@ -1,16 +1,8 @@
 ﻿
+using SampleMauiMvvmApp.Interfaces;
+
 namespace SampleMauiMvvmApp.Services
 {
-    public interface ICustomerService
-    {
-        Task<List<Customer>> GetAllCustomers();
-        Task<Customer> GetCustomerByReading(Reading reading);
-        Task<Customer> GetCustomerByReadingId(string CustomerIdFromReading);
-        Task<Customer> GetCustomerDetails(string customerId);
-        Task<List<Customer>> GetListOfCustomerFromSql();
-        Task SetAuthToken();
-    }
-
     // https://www.youtube.com/watch?v=XFP8Np-uRWc&ab_channel=JamesMontemagno
     public class CustomerService : BaseService, ICustomerService
     {

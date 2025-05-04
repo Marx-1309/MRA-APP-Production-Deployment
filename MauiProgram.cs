@@ -65,5 +65,5 @@ public static class MauiProgram
         builder.Services.AddAutoMapper(typeof(ClassDtoMapping));
 
         return builder.Build();
-	}
+    }
 }

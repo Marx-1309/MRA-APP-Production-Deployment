@@ -24,10 +24,12 @@ namespace SampleMauiMvvmApp.ViewModels
         MonthService monthService;
         CustomerService customerService;
         ReadingService readingService;
+        ReadingExportService readingExportService;
         IConnectivity connectivity;
 
         public MonthViewModel(
             MonthService _monthService,
+            ReadingExportService _readingExportService,
             IConnectivity _connectivity,
             ReadingService _readingService,
             CustomerService _customerService
@@ -37,6 +39,7 @@ namespace SampleMauiMvvmApp.ViewModels
             connectivity = _connectivity;
             monthService = _monthService;
             readingService = _readingService;
+            readingExportService = _readingExportService;
             customerService = _customerService;
         }
 
@@ -139,16 +142,17 @@ namespace SampleMauiMvvmApp.ViewModels
                 if (IsBusy) return;
                 IsBusy = true;
                 var response = await readingService.SyncReadingsByMonthIdAsync(CMonth);
-                message = readingService.StatusMessage;
-                if (response! > 1) return;
-                IsBusy = false;
-                int syncedReadingsItemCount = ReadingService.allReadingsItemsByCount;
-                int syncedImagesItemCount = ReadingService.allImageItemsByCount;
-                await Shell.Current.DisplayAlert($"{syncedReadingsItemCount} Reading(s) Synced ", SMonth, "OK");
-                await Shell.Current.DisplayAlert($"{syncedImagesItemCount} Image(s) Synced ", SMonth, "OK");
+                if(response > 0)
+                {
+                    await Shell.Current.DisplayAlert(
+                                "Data Recycling Notice",
+                                "Your data will be automatically recycled.\n\nClick OK to continue.",
+                                "OK");
 
-                await Task.Delay(500);
-                await GoBackAsync();
+                    await readingExportService.FlushAndSeed();
+                }
+                message = readingService.StatusMessage;
+                return;
             }
             catch
             {
@@ -157,10 +161,8 @@ namespace SampleMauiMvvmApp.ViewModels
 
             finally
             {
-
                 IsBusy = false;
             }
-           
         }
 
         private async Task ShowAlert(string message)

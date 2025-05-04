@@ -417,16 +417,11 @@ namespace SampleMauiMvvmApp.Services
             return null;
         }
 
-        public static int allReadingsItemsByCount = 0;
+        
         public async Task<int> SyncReadingsByMonthIdAsync(int Id)
         {
-            //if (connectivity.NetworkAccess != NetworkAccess.Internet)
-            //{
-            //    await Shell.Current.DisplayAlert("Failed to upload readings!",
-            //        $"Please ensure connectivity and try again.", "OK");
-            //    return 0;
-            //}
-
+            int allReadingsItemsByCount = 0;
+            int itemCount = 0;
             try
             {
 
@@ -446,7 +441,6 @@ namespace SampleMauiMvvmApp.Services
 
                         if (response.Count > 0)
                         {
-                            int itemCount = 0;
                             var iii = await dbContext.Database.Table<ReadingExport>().ToListAsync();
                             foreach (var item in response)
                             {

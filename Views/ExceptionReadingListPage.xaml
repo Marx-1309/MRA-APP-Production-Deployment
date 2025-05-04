@@ -6,7 +6,7 @@
              xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
              x:DataType="viewmodel:ReadingViewModel"
              Title="Abnormal Readings"
-             BackgroundColor="LightGray">
+             BackgroundColor="White">
 
     <Grid RowDefinitions="Auto,*"
           Padding="10"
@@ -31,7 +31,7 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Reading">
-                        <Frame BackgroundColor="PapayaWhip"
+                        <Frame BackgroundColor="GhostWhite"
                                CornerRadius="10"
                                Margin="5"
                                Padding="10"

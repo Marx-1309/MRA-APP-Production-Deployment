@@ -166,12 +166,12 @@ namespace SampleMauiMvvmApp.Services
         {
             try
             {
-                var listOfMonths = await dbContext.Database.Table<Month>().ToListAsync();
+                var listOfMonths =  dbContext.Database.Table<Month>().ToListAsync().GetAwaiter().GetResult();
                 
                 if (listOfMonths.Count == 0)
                 {
                     await GetListOfMonthsFromSql();
-                    listOfMonths = await dbContext.Database.Table<Month>().ToListAsync();
+                    listOfMonths = dbContext.Database.Table<Month>().ToListAsync().GetAwaiter().GetResult();
                 }
 
                 if (listOfMonths.Count > 0)

@@ -59,11 +59,13 @@
 	  <None Remove="Resources\Images\force_sync_icon.jpg" />
 	  <None Remove="Resources\Images\info_icon.jpg" />
 	  <None Remove="Resources\Images\kinetic_logo_splash.png" />
+	  <None Remove="Resources\Images\manage_profile.png" />
 	  <None Remove="Resources\Images\menu_options_icon.png" />
 	  <None Remove="Resources\Images\notes_icon.png" />
 	  <None Remove="Resources\Images\no_notes_icon.png" />
 	  <None Remove="Resources\Images\onboarding_icon.png" />
 	  <None Remove="Resources\Images\pencil_icon.jpg" />
+	  <None Remove="Resources\Images\reading_stats.png" />
 	  <None Remove="Resources\Images\reset2_icon.png" />
 	  <None Remove="Resources\Images\reset_icon.png" />
 	  <None Remove="Resources\Images\scan_db_icon.png" />
@@ -142,9 +144,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoadNewExportPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\MonthCustomerTabPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MonthPage.xaml">

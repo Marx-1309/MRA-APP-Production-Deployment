@@ -5,6 +5,7 @@
              xmlns:viewmodel="clr-namespace:SampleMauiMvvmApp.ViewModels"
              xmlns:searchHandlers="clr-namespace:SampleMauiMvvmApp.SearchHandlers"
              x:Class="SampleMauiMvvmApp.Views.UncapturedReadingsPage"
+             FlowDirection="LeftToRight"
              Title="{Binding UncapturedReadingsCount}"
              x:DataType="viewmodel:ReadingViewModel">
     <Shell.BackButtonBehavior>

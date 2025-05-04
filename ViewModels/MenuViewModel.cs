@@ -46,6 +46,20 @@ namespace SampleMauiMvvmApp.ViewModels
                     Url = "ReflushPage",
                     IsActive=true,
                 },
+                new Menu{
+                    Name = "Manage Profile",
+                    Image = "manage_profile.png",
+                    Label= "",
+                    Url = "",
+                    IsActive=true,
+                },
+                new Menu{
+                    Name = "Statistics",
+                    Image = "reading_stats.jpg",
+                    Label= "",
+                    Url = "",
+                    IsActive=true,
+                }
             };
         }
 

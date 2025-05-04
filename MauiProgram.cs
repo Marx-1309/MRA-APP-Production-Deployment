@@ -25,7 +25,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<NotesService>();
         builder.Services.AddSingleton<DbContext>();
         builder.Services.AddSingleton<CustomerService>();
-        builder.Services.AddSingleton<ReadingService>();
+        builder.Services.AddTransient<ReadingService>();
         builder.Services.AddSingleton<ReadingExportService>();
         builder.Services.AddSingleton<MonthService>();
         builder.Services.AddSingleton<AuthenticationService>();

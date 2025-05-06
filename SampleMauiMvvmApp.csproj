@@ -61,6 +61,7 @@
 	  <None Remove="Resources\Images\kinetic_logo_splash.png" />
 	  <None Remove="Resources\Images\manage_profile.png" />
 	  <None Remove="Resources\Images\menu_options_icon.png" />
+	  <None Remove="Resources\Images\month_icon.png" />
 	  <None Remove="Resources\Images\notes_icon.png" />
 	  <None Remove="Resources\Images\no_notes_icon.png" />
 	  <None Remove="Resources\Images\onboarding_icon.png" />
@@ -71,6 +72,7 @@
 	  <None Remove="Resources\Images\scan_db_icon.png" />
 	  <None Remove="Resources\Images\success_icon.jpg" />
 	  <None Remove="Resources\Images\uncapturedlocation_logo.png" />
+	  <None Remove="Resources\Images\uncaptured_location.png" />
 	  <None Remove="Resources\Raw\active_animation.json" />
 	  <None Remove="Resources\Raw\emptyview_animation.json" />
 	  <None Remove="Resources\Raw\sync_animation.json" />

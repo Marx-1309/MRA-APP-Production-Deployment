@@ -166,29 +166,67 @@ namespace SampleMauiMvvmApp.Services
         {
             try
             {
-                var listOfMonths =  dbContext.Database.Table<Month>().ToListAsync().GetAwaiter().GetResult();
-                
-                if (listOfMonths.Count == 0)
+                // Retrieve the first reading with a non-zero WaterReadingExportID
+                var reading = await dbContext.Database.Table<Reading>()
+                                                     .FirstOrDefaultAsync(r => r.WaterReadingExportID != 0);
+
+                if (reading == null)
                 {
-                    await GetListOfMonthsFromSql();
-                    listOfMonths = dbContext.Database.Table<Month>().ToListAsync().GetAwaiter().GetResult();
+                    StatusMessage = "No reading found.";
+                    return null;
                 }
 
-                if (listOfMonths.Count > 0)
+                // Find the current month from the reading's MonthID
+                var currentMonth =  dbContext.Database.Table<Month>()
+                                                         .FirstOrDefaultAsync(m => m.MonthID == reading.MonthID).GetAwaiter().GetResult();
+                if (currentMonth == null)
                 {
-                    return listOfMonths;
+                    await GetListOfMonthsFromSql();
+
+                    currentMonth = dbContext.Database.Table<Month>()
+                                                            .FirstOrDefaultAsync(m => m.MonthID == reading.MonthID).GetAwaiter().GetResult();
+
+                    if (currentMonth == null)
+                    {
+                        StatusMessage = "Populated month not found.";
+                        return null;
+                    }
+                }
+
+                int year = DateTime.Now.Year;
+                int currentMonthNumber = currentMonth.MonthID; // Assuming MonthID represents a month number (1 = January, 2 = February, etc.)
+
+                // Calculate previous and next month numbers
+                int previousMonthNumber = currentMonthNumber - 1;
+                int nextMonthNumber = currentMonthNumber + 1;
+
+                // Adjust for year-end wrapping (e.g., December -> January)
+                if (previousMonthNumber == 0) previousMonthNumber = 12;
+                if (nextMonthNumber == 13) nextMonthNumber = 1;
+
+                // Retrieve the months for previous, current, and next months
+                var months = await dbContext.Database.Table<Month>()
+                                                     .Where(m => m.MonthID == previousMonthNumber ||
+                                                                 m.MonthID == currentMonthNumber ||
+                                                                 m.MonthID == nextMonthNumber)
+                                                     .ToListAsync();
+
+                // If we have all 3 months (previous, current, and next), return them
+                if (months.Count == 3)
+                {
+                    return months;
                 }
                 else
                 {
-                    StatusMessage = $"Failed to retrieve months from the database.";
+                    StatusMessage = "Failed to retrieve the requested months from the database.";
+                    return null;
                 }
             }
             catch (Exception ex)
             {
                 StatusMessage = $"Error: {ex.Message}";
+                return null;
             }
-
-            return null;
         }
 
 

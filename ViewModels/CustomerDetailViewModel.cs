@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui.Converters;
+using iText.Layout.Properties;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Maui.Controls;
 
 namespace SampleMauiMvvmApp.ViewModels
 {
@@ -389,11 +391,11 @@ namespace SampleMauiMvvmApp.ViewModels
             VmReading.C_reading = string.Empty;
         }
 
-        #region CustomerLocations
-        string items1 = "ONESI";
+        #region Locations
+        //string items1 = "ONESI";
         //string items2 = "OKALONGO";
         //string items3 = "OGONGO";
-        string items4 = "UNCLASSIFIED";
+        //string items4 = "UNCLASSIFIED";
         //string items1 = "EXTENSION 1";
         //string items2 = "EXTENSION 2";
         //string items3 = "EXTENSION 3";
@@ -415,9 +417,51 @@ namespace SampleMauiMvvmApp.ViewModels
         //string items19 = "EHAO EXTENSION 1";
         //string items20 = "UNCLASSIFIED";
 
+        //string items1 = "Omaruru Town - Extension 1";
+        //string items2 = "Omaruru Town - Extension 2";
+        //string items3 = "Omaruru Town - Extension 3";
+        //string items4 = "Omaruru Town - Extension 4";
+        //string items5 = "Omaruru Town - Extension 5";
+        //string items6 = "Ozondje Town -  Welwitchia";
+        //string items7 = "Ozondje Town - Herero Location";
+        //string items8 = "Ozondje Town - Damara Location";
+        //string items9 = "Ozondje Town - Sonskyn";
+        //string items10 = "Ozondje Town - Hakahana";
+        //string items11 = "Ozondje Town - Vambo Location";
+        //string items12 = "Unclassified";
 
+        string items1 = "EXTENSION 1";
+        string items2 = "EXTENSION 5";
+        string items3 = "KHOAEB DRC";
+        string items4 = "KHOAEB PROPER";
+        string items5 = "KHOAEB PROPER-CHURCH";
+        string items6 = "KHOAEB PROPER-CHURCH STREET";
+        string items7 = "KHOAEB PROPER-CONCO";
+        string items8 = "KHOAEB PROPER-CONGO";
+        string items9 = "KHOAEB PROPER-SAAM";
+        string items10 = "KHOAEB PROPER-SAAMATAAN";
+        string items11 = "KHOAEB PROPER-SCHOOL STREET";
+        string items12 = "KHOAEB PROPER-SION";
+        string items13 = "KHOAEB PROPER-SION STREET";
+        string items14 = "KHOAEB PROPER EXTENSION 2";
+        string items15 = "KHOAEB PROPER EXTENSION 3";
+        string items16 = "KHOAEB PROPER EXTENSION 5";
+        string items17 = "KHOAEB PROPERSAAMSTAAN";
+        string items18 = "KHOAEB EXTENSION 2";
+        string items19 = "KHOAEB EXTENSION 3";
+        string items20 = "KHOAEB EXTENSION 4";
+        string items21 = "KHOAEB EXTENSION 5";
+        string items22 = "NEW CAIRO";
+        string items23 = "NEW CAIRO 1";
+        string items24 = "OTAVI PROPER";
+        string items25 = "TOWN PROPER";
+        string items26 = "TOWN PROPER-DRC";
+        string items27 = "TOWN PROPER EXTENSION 5";
+        string items28 = "TOWN EXTENSION 4";
+        string items29 = "KHOAEB PROPER-NARUSEB";
+        string items30 = "/NARUSEB";
+        string items31 = "Unclassified";
         #endregion
-
         public async Task<string> AddNewCustomerLocation(string customerNo)
         {
             var cstObj = await dbContext.Database.Table<Reading>()
@@ -441,8 +485,11 @@ namespace SampleMauiMvvmApp.ViewModels
             while (!hasLocation)
             {
                 var userLocation = await Shell.Current.DisplayActionSheet(
-                    "Select Location",null,null,items1, items4
-                    );
+                    "Select Location", null, null,
+                    items1, items2, items3, items4, items5, items6, items7, items8, items9,
+                    items10, items11, items12, items13, items14, items15, items16, items17, items18,
+                    items19, items20, items21, items22, items23, items24, items25, items26, items27,
+                    items28, items29, items30, items31);
 
                 if (!string.IsNullOrEmpty(userLocation) &&
                     !string.IsNullOrWhiteSpace(userLocation) &&
@@ -517,8 +564,11 @@ namespace SampleMauiMvvmApp.ViewModels
                 if (cstObj1 != null)
                 {
                     var userLocation = await Shell.Current.DisplayActionSheet(
-                        "Select Location", null, null, items1,items4
-                    );
+                        "Select Location", null, null,
+                    items1, items2, items3, items4, items5, items6, items7, items8, items9,
+                    items10, items11, items12, items13, items14, items15, items16, items17, items18,
+                    items19, items20, items21, items22, items23, items24, items25, items26, items27,
+                    items28, items29, items30, items31);
 
                     if (!string.IsNullOrEmpty(userLocation))
                     {

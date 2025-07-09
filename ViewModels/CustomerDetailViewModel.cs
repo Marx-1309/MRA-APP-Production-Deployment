@@ -259,7 +259,6 @@ namespace SampleMauiMvvmApp.ViewModels
                     await Shell.Current.DisplayAlert($"Error!",
                                    $"Something Wrong,Try Again!", "OK");
                     await ClearForm();
-                    await Task.Delay(500);
                     await GoBackAsync();
                 }
             }

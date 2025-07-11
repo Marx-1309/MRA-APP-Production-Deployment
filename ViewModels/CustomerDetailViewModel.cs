@@ -146,7 +146,7 @@ namespace SampleMauiMvvmApp.ViewModels
                 var customerInfo = await customerService.GetCustomerDetails(Customer.Custnmbr);
                 //var loggedInUser = await dbContext.Database.Table<LoginHistory>()?.OrderByDescending(r => r.LoginId).FirstAsync();
 
-                if (!VmReading.C_reading.IsNullOrEmpty())
+                if (VmReading.C_reading != null && VmReading.C_reading.Any())
                 {
                     if (int.TryParse(VmReading.C_reading, out int intValue))
                     {
@@ -390,31 +390,31 @@ namespace SampleMauiMvvmApp.ViewModels
         }
 
         #region CustomerLocations
-        string items1 = "ONESI";
-        //string items2 = "OKALONGO";
-        //string items3 = "OGONGO";
-        string items4 = "UNCLASSIFIED";
-        //string items1 = "EXTENSION 1";
-        //string items2 = "EXTENSION 2";
-        //string items3 = "EXTENSION 3";
-        //string items4 = "EXTENSION 4";
-        //string items5 = "EXTENSION 5";
-        //string items6 = "EXTENSION 6";
-        //string items7 = "EXTENSION 7";
-        //string items8 = "EXTENSION 8";
-        //string items9 = "EXTENSION 9";
-        //string items10 = "EXTENSION 10";
-        //string items11 = "EXTENSION 11";
-        //string items12 = "EXTENSION 12";
-        //string items13 = "EXTENSION 13";
-        //string items14 = "EXTENSION 14";
-        //string items15 = "OKAHAO PROPER";
-        //string items16 = "KASHENDA PROPER";
-        //string items17 = "KASHENDA EXTENSION 1";
-        //string items18 = "EHAO PROPER";
-        //string items19 = "EHAO EXTENSION 1";
-        //string items20 = "UNCLASSIFIED";
-
+        string location1 = "OPUWO PROPER - TOWN";
+        string location2 = "OPUWO EXT 2 - OKATUWO";
+        string location3 = "OTUZEMBA";
+        string location4 = "KATUTURA";
+        string location5 = "OURANDA";
+        string location6 = "ORUTJANDJA NORTH";
+        string location7 = "BUSINESS EXT 3";
+        string location8 = "OPUWO EXT 1 - SCHEIDERS HOUSE";
+        string location9 = "OPUWO PROPER & EXT - A HOUSE";
+        string location10 = "OPUWO PROPER EXT 1 & EXT 6 - B HOUSE";
+        string location11 = "OTUZEMBA EXT 1 - ONDUUNJE";
+        string location12 = "ORUTJANDJA WEST";
+        string location13 = "OTUZEMBA INFORMAL";
+        string location14 = "OKATUTURA WATER";
+        string location15 = "OKATUTURA RECEIPTION";
+        string location16 = "ORUTJANDJA WATER";
+        string location17 = "OLD BUSINESS";
+        string location18 = "SHACK DWELLERS";
+        string location19 = "OTUZEMBA EXT 2";
+        string location20 = "OKATUWO INFORMAL";
+        string location21 = "ETATI PROPER EXT 1 & 2";
+        string location22 = "OPUWO EXT 12";
+        string location23 = "OPUWO EXT 7";
+        string location24 = "OPUWO EXT 8";
+        string location25 = "UNCLASSIFIED";
 
         #endregion
 
@@ -441,8 +441,13 @@ namespace SampleMauiMvvmApp.ViewModels
             while (!hasLocation)
             {
                 var userLocation = await Shell.Current.DisplayActionSheet(
-                    "Select Location",null,null,items1, items4
-                    );
+                    "Select Location", null, null,
+                    location1, location2, location3, location4, location5, location6,
+                    location7, location8, location9, location10, location11, location12,
+                    location13, location14, location15, location16, location17, location18,
+                    location19, location20, location21, location22, location23, location24,location25
+                );
+
 
                 if (!string.IsNullOrEmpty(userLocation) &&
                     !string.IsNullOrWhiteSpace(userLocation) &&
@@ -517,7 +522,11 @@ namespace SampleMauiMvvmApp.ViewModels
                 if (cstObj1 != null)
                 {
                     var userLocation = await Shell.Current.DisplayActionSheet(
-                        "Select Location", null, null, items1,items4
+                        "Select Location", null, null,
+                        location1, location2, location3, location4, location5, location6,
+                        location7, location8, location9, location10, location11, location12,
+                        location13, location14, location15, location16, location17, location18,
+                        location19, location20, location21, location22, location23, location24, location25
                     );
 
                     if (!string.IsNullOrEmpty(userLocation))

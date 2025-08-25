@@ -4,6 +4,7 @@
     {
         public ReadingService readingService;
         public ReadingExportService readingExportService;
+
         public OnboardingViewModel(ReadingService _readingService, ReadingExportService _readingExportService)
         {
             this.readingService = _readingService;
@@ -17,7 +18,7 @@
             IsBusy = true;
 
             var token = await SecureStorage.GetAsync("Token");
-            if (string.IsNullOrEmpty(token)) 
+            if (string.IsNullOrEmpty(token))
             {
                 IsBusy = false;
                 await GoToLoginPage();
@@ -31,22 +32,20 @@
                     SecureStorage.Remove("Token");
                     await GoToLoginPage();
                 }
-                else 
+                else
                 {
                     var role = jsonToken.Claims.FirstOrDefault(q => q.Type.Equals(ClaimTypes.Role))?.Value;
                     App.UserInfo = new UserInfo()
                     {
                         Username = jsonToken.Claims.FirstOrDefault(q => q.Type.Equals(ClaimTypes.Email))?.Value,
                         Role = role,
-                    }; 
-                    
-                    IsBusy = false; 
+                    };
+
+                    IsBusy = false;
                     await GoToMainPage();
                 }
             }
         }
-
-
 
         public async Task CheckIfValidToken()
         {
@@ -54,7 +53,7 @@
             IsBusy = true;
 
             var token = await SecureStorage.GetAsync("Token");
-           
+
             SecureStorage.Remove("Token");
             Preferences.Default.Clear();
 
@@ -95,9 +94,8 @@
         {
             await CheckIfValidToken();
             return;
-            
-            //await readingService.GetListOfReadingExportFromSql();
 
+            //await readingService.GetListOfReadingExportFromSql();
         }
 
         [RelayCommand]
@@ -108,14 +106,14 @@
             IsBusy = false;
         }
 
-        private async Task GoToLoginPage() 
+        private async Task GoToLoginPage()
         {
             await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
         }
 
         private async Task GoToMainPage()
         {
-            await Shell.Current.GoToAsync($"//{nameof(MonthCustomerTabPage)}"); ; 
+            await Shell.Current.GoToAsync($"//{nameof(MonthCustomerTabPage)}"); ;
         }
     }
 }

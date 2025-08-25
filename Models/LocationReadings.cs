@@ -11,8 +11,7 @@ namespace SampleMauiMvvmApp.Models
         public string? AREANAME { get; set; }
         public string? CUSTOMER_ZONING { get; set; }
         public int? NumberOfReadings { get; set; }
-        public bool? IsAllCaptured { get; set; } 
+        public bool? IsAllCaptured { get; set; }
         public bool? IsAllNotCaptured { get; set; }
-
     }
 }

@@ -11,7 +11,7 @@
           BackgroundColor="#f7f7f7">
 
         <!-- Add New Note Button -->
-        <StackLayout Padding="10" BackgroundColor="White" >
+        <StackLayout Padding="10" BackgroundColor="White">
             <Button Text="+ Add New Note"
                     Command="{Binding AddUpdateNoteCommand}"
                     BackgroundColor="#ff8800"
@@ -40,7 +40,7 @@
                                                        FontAttributes="Bold"
                                                        TextColor="White"
                                                        HorizontalOptions="Center"
-                                                       VerticalOptions="Center"/>
+                                                       VerticalOptions="Center" />
                                             </VerticalStackLayout>
                                         </SwipeItemView>
                                         <SwipeItemView>
@@ -49,7 +49,7 @@
                                                        FontAttributes="Bold"
                                                        TextColor="White"
                                                        HorizontalOptions="Center"
-                                                       VerticalOptions="Center"/>
+                                                       VerticalOptions="Center" />
                                             </VerticalStackLayout>
                                         </SwipeItemView>
                                     </SwipeItems>
@@ -66,7 +66,7 @@
                                         <Label Text="{Binding NoteTitle}"
                                                FontSize="18"
                                                FontAttributes="Bold"
-                                               TextColor="#333"/>
+                                               TextColor="#333" />
 
                                         <Label Text="{Binding NoteContent}"
                                                Grid.Row="1"
@@ -95,7 +95,7 @@
                     <!-- Empty View -->
                     <CollectionView.EmptyView>
                         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Spacing="10">
-                            <Image Source="no_notes_icon.png" WidthRequest="100" HeightRequest="100"/>
+                            <Image Source="no_notes_icon.png" WidthRequest="100" HeightRequest="100" />
                             <Label Text="You do not have any notes!" FontSize="16" FontAttributes="Bold" TextColor="#888" />
                         </StackLayout>
                     </CollectionView.EmptyView>

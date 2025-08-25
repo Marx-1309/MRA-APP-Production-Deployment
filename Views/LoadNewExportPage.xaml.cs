@@ -4,11 +4,11 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class LoadNewExportPage : ContentPage
 {
-	OnboardingViewModel _viewModel;
+    private OnboardingViewModel _viewModel;
 
     public LoadNewExportPage(OnboardingViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = viewModel;
         this.BindingContext = viewModel;
     }

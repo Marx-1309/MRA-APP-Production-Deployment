@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.ModelWrappers
+﻿namespace SampleMauiMvvmApp.ModelWrappers
 {
     public partial class ReadingWrapper : ObservableObject
     {
@@ -30,8 +29,6 @@ namespace SampleMauiMvvmApp.ModelWrappers
                 ReadingNotTaken = (bool)readingModel.ReadingNotTaken;
                 //ReadingTaken = (bool)readingModel.ReadingTaken;
                 //ReadingSync = (bool)readingModel.ReadingSync;
-
-
             }
         }
 
@@ -39,67 +36,97 @@ namespace SampleMauiMvvmApp.ModelWrappers
         {
             this.month = month;
         }
+
         public int Id;
         public int WaterReadingExportDataID { get; set; }
 
         [ObservableProperty]
-        int waterReadingExportId;
+        private int waterReadingExportId;
+
         [ObservableProperty]
-        string customer_number;
+        private string customer_number;
+
         [ObservableProperty]
-        string customer_name;
+        private string customer_name;
+
         [ObservableProperty]
-        string area;
+        private string area;
+
         [ObservableProperty]
-        long phone1;
+        private long phone1;
+
         [ObservableProperty]
-        string erf_number;
+        private string erf_number;
+
         [ObservableProperty]
-        string meter_number;
+        private string meter_number;
+
         [ObservableProperty]
-        string c_reading;
+        private string c_reading;
+
         [ObservableProperty]
-        long? current_reading;
+        private long? current_reading;
+
         [ObservableProperty]
-        decimal previous_reading;
+        private decimal previous_reading;
+
         [ObservableProperty]
-        int percentageChange;
+        private int percentageChange;
+
         [ObservableProperty]
-        int monthID;
+        private int monthID;
+
         [ObservableProperty]
-        string? currentMonth;
+        private string? currentMonth;
+
         [ObservableProperty]
-        int year;
+        private int year;
+
         [ObservableProperty]
-        string customer_zoning;
+        private string customer_zoning;
+
         [ObservableProperty]
-        string readingDate;
+        private string readingDate;
+
         [ObservableProperty]
-        int customerId;
+        private int customerId;
+
         [ObservableProperty]
-        bool isNew;
+        private bool isNew;
+
         [ObservableProperty]
-        int readingsID;
+        private int readingsID;
+
         [ObservableProperty]
-        string reading_number;
+        private string reading_number;
+
         [ObservableProperty]
-        string meterReader;
+        private string meterReader;
+
         [ObservableProperty]
-        string comment;
+        private string comment;
+
         [ObservableProperty]
-        int waterReadingTypeID;
+        private int waterReadingTypeID;
+
         [ObservableProperty]
-        string routeNumber;
+        private string routeNumber;
+
         [ObservableProperty]
         public bool readingTaken;
+
         [ObservableProperty]
         public bool isFlagged;
+
         [ObservableProperty]
         public bool readingNotTaken;
+
         [ObservableProperty]
-        bool readingSync;
+        private bool readingSync;
+
         [ObservableProperty]
-        bool areaUpdated;
+        private bool areaUpdated;
+
         public List<Reading> month;
     }
 }

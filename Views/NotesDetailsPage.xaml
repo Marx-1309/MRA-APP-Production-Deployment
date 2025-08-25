@@ -17,7 +17,7 @@
                     <Label Text="Title"
                            FontSize="16"
                            FontAttributes="Bold"
-                           TextColor="#333"/>
+                           TextColor="#333" />
                     <Frame CornerRadius="8" Padding="10" HasShadow="False" BackgroundColor="White">
                         <Entry Text="{Binding NoteDetails.NoteTitle}"
                                Placeholder="Enter note title"
@@ -32,7 +32,7 @@
                     <Label Text="My Note"
                            FontSize="16"
                            FontAttributes="Bold"
-                           TextColor="#333"/>
+                           TextColor="#333" />
                     <Frame CornerRadius="8" Padding="10" HasShadow="False" BackgroundColor="White">
                         <Editor Text="{Binding NoteDetails.NoteContent}"
                                 Placeholder="Type something here..."
@@ -48,12 +48,11 @@
                     <Label Text="Date"
                            FontSize="16"
                            FontAttributes="Bold"
-                           TextColor="#333"/>
+                           TextColor="#333" />
                     <Label Text="{Binding NoteDetails.Date}"
                            FontSize="14"
-                           TextColor="#888"/>
+                           TextColor="#888" />
                 </VerticalStackLayout>
-
             </StackLayout>
         </ScrollView>
 
@@ -67,7 +66,6 @@
                 CornerRadius="12"
                 HeightRequest="50"
                 Command="{Binding UpsertNoteCommand}"
-                Margin="0,20,0,0"/>
+                Margin="0,20,0,0" />
     </Grid>
-
 </ContentPage>

@@ -1,31 +1,39 @@
-﻿
-namespace SampleMauiMvvmApp.ViewModels
+﻿namespace SampleMauiMvvmApp.ViewModels
 {
     public partial class MonthViewModel : BaseViewModel
     {
-        public ObservableCollection<Month> Months { get;} = new();
-        public ObservableCollection<Reading> listReadings { get; set; } =new ObservableCollection<Reading> { };
+        public ObservableCollection<Month> Months { get; } = new();
+        public ObservableCollection<Reading> listReadings { get; set; } = new ObservableCollection<Reading> { };
         public ObservableCollection<Customer> customer { get; set; } = new();
+
         [ObservableProperty]
-        bool isRefreshing;
+        private bool isRefreshing;
+
         [ObservableProperty]
-        string myTitle;
+        private string myTitle;
+
         [ObservableProperty]
         public static int cMonth;
+
         [ObservableProperty]
         public static string sMonth;
-        [ObservableProperty] 
-        string syncTime;
+
+        [ObservableProperty]
+        private string syncTime;
+
         [ObservableProperty]
         public static decimal lastReadingByCustId;
-        string message = string.Empty;
+
+        private string message = string.Empty;
+
         [ObservableProperty]
-        int currentYear;
-        MonthService monthService;
-        CustomerService customerService;
-        ReadingService readingService;
-        ReadingExportService readingExportService;
-        IConnectivity connectivity;
+        private int currentYear;
+
+        private MonthService monthService;
+        private CustomerService customerService;
+        private ReadingService readingService;
+        private ReadingExportService readingExportService;
+        private IConnectivity connectivity;
 
         public MonthViewModel(
             MonthService _monthService,
@@ -44,22 +52,19 @@ namespace SampleMauiMvvmApp.ViewModels
         }
 
         [RelayCommand]
-        public async Task<decimal> GetLastReadingByCustomerId(string customer )
+        public async Task<decimal> GetLastReadingByCustomerId(string customer)
         {
             var LastReadingByCustomerId = await readingService.GetLastReadingByIdAsync(customer);
             LastReadingByCustId = (decimal)LastReadingByCustomerId.CURRENT_READING;
             return LastReadingByCustId;
         }
 
-
-
         [RelayCommand]
-        async Task GetMonthsAsync()
+        private async Task GetMonthsAsync()
         {
             if (IsBusy) return;
             try
             {
-               
                 IsBusy = true;
                 await Task.Delay(500);
                 var months = await monthService.GetListOfMonthsFromSqlite();
@@ -71,17 +76,19 @@ namespace SampleMauiMvvmApp.ViewModels
                     return;
                 }
 
-                foreach (var month in months) {
+                foreach (var month in months)
+                {
                     month.IsActive = await monthService.IsMonthPopulated(month);
                     Months.Add(month);
-                };
-                if(Months.Count == 0)
+                }
+                ;
+                if (Months.Count == 0)
                 {
-                    await Shell.Current.DisplayAlert("Error!","Failed to fetch data", "OK");
+                    await Shell.Current.DisplayAlert("Error!", "Failed to fetch data", "OK");
                 }
             }
-
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Debug.WriteLine($"Unable to get months: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
@@ -93,16 +100,17 @@ namespace SampleMauiMvvmApp.ViewModels
         }
 
         [RelayCommand]
-        public async Task GoToListOfReadingsByMonth (Month monthId)
+        public async Task GoToListOfReadingsByMonth(Month monthId)
         {
             if (monthId.MonthID <= 0) return;
             var readings = await readingService.GetReadingsByMonthId(monthId.MonthID);
-            foreach(var item in readings)
+            foreach (var item in readings)
             {
-                if(item.ReadingTaken == false)
+                if (item.ReadingTaken == false)
                 {
                     item.ReadingTaken = true;
-                };
+                }
+                ;
             }
             if (readings.Count == 0)
             {
@@ -111,11 +119,10 @@ namespace SampleMauiMvvmApp.ViewModels
             }
             CMonth = monthId.MonthID;
             SMonth = $"Successfully Synced for : {monthId.MonthName} ";
-            SyncTime = System.DateTime.UtcNow.Hour + $":{System.DateTime.UtcNow.Minute}" ;
+            SyncTime = System.DateTime.UtcNow.Hour + $":{System.DateTime.UtcNow.Minute}";
             listReadings.Clear();
-            foreach  (var reading in readings)
+            foreach (var reading in readings)
             {
-              
                 listReadings.Add(reading);
             }
             //listReadings.AddRange(readings);
@@ -126,23 +133,21 @@ namespace SampleMauiMvvmApp.ViewModels
                             });
         }
 
-
         [RelayCommand]
         public async Task GoBackAsync()
         {
             await Shell.Current.GoToAsync("..");
         }
 
-     
         [RelayCommand]
         public async Task SyncByMonthIdAsync()
         {
-
-            try {
+            try
+            {
                 if (IsBusy) return;
                 IsBusy = true;
                 var response = await readingService.SyncReadingsByMonthIdAsync(CMonth);
-                if(response > 0)
+                if (response > 0)
                 {
                     await Shell.Current.DisplayAlert(
                                 "Data Recycling Notice",
@@ -158,7 +163,6 @@ namespace SampleMauiMvvmApp.ViewModels
             {
                 await Shell.Current.DisplayAlert($"{message} ,Unable to sync readings ", "Please Try again", "OK");
             }
-
             finally
             {
                 IsBusy = false;
@@ -169,6 +173,5 @@ namespace SampleMauiMvvmApp.ViewModels
         {
             await Shell.Current.DisplayAlert("Info", message, "Ok");
         }
-
     }
 }

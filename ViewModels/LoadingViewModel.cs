@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
+
 //using SampleMauiMvvmApp.Helpers;
 using SampleMauiMvvmApp.Models;
 using SampleMauiMvvmApp.Services;
@@ -19,10 +20,11 @@ namespace SampleMauiMvvmApp.ViewModels
     public partial class LoadingViewModel : BaseViewModel
     {
         [ObservableProperty]
-        string loggedin;
+        private string loggedin;
 
         public ReadingService readingService;
         public ReadingExportService readingExportService;
+
         public LoadingViewModel(ReadingService _readingService, ReadingExportService _readingExportService)
         {
             this.readingService = _readingService;
@@ -35,7 +37,7 @@ namespace SampleMauiMvvmApp.ViewModels
             await Task.Delay(1000);
             IsBusy = true;
             var token = await SecureStorage.GetAsync("Token");
-            if (string.IsNullOrEmpty(token)) 
+            if (string.IsNullOrEmpty(token))
             {
                 IsBusy = false;
                 await GoToLoginPage();
@@ -49,20 +51,19 @@ namespace SampleMauiMvvmApp.ViewModels
                     SecureStorage.Remove("Token");
                     await GoToLoginPage();
                 }
-                else 
+                else
                 {
                     var role = jsonToken.Claims.FirstOrDefault(q => q.Type.Equals(ClaimTypes.Role))?.Value;
                     App.UserInfo = new UserInfo()
                     {
                         Username = jsonToken.Claims.FirstOrDefault(q => q.Type.Equals(ClaimTypes.Email))?.Value,
                         Role = role,
-                    }; 
-                    
-                    IsBusy = false; 
+                    };
+
+                    IsBusy = false;
                     await GoToMainPage();
                 }
             }
-
         }
 
         [RelayCommand]
@@ -80,14 +81,14 @@ namespace SampleMauiMvvmApp.ViewModels
             IsBusy = false;
         }
 
-        private async Task GoToLoginPage() 
+        private async Task GoToLoginPage()
         {
             await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
         }
 
         private async Task GoToMainPage()
         {
-            await Shell.Current.GoToAsync($"//{nameof(MonthCustomerTabPage)}"); ; 
+            await Shell.Current.GoToAsync($"//{nameof(MonthCustomerTabPage)}"); ;
         }
     }
 }

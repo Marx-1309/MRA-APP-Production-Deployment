@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.Models
+﻿namespace SampleMauiMvvmApp.Models
 {
     public enum MonthsEnum
     {

@@ -19,8 +19,6 @@
             Color="{StaticResource Primary}"
             VerticalOptions="Center" />
             <Label TextColor="Blue" FontSize="Subtitle"  HorizontalOptions="CenterAndExpand"  Text="Please Wait..."></Label>
-
         </VerticalStackLayout>
     </Grid>
-
 </ContentPage>

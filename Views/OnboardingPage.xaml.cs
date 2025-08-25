@@ -1,9 +1,9 @@
-
 namespace SampleMauiMvvmApp.Views;
 
 public partial class OnboardingPage : ContentPage
 {
     public OnboardingViewModel _viewModel;
+
     public OnboardingPage(OnboardingViewModel viewModel)
     {
         InitializeComponent();
@@ -18,7 +18,6 @@ public partial class OnboardingPage : ContentPage
         _viewModel.GetInitializationDataCommand.Execute(null);
     }
 
-
     private async void Button_Clicked(object sender, EventArgs e)
     {
         var parameters = new Dictionary<string, object>
@@ -27,5 +26,4 @@ public partial class OnboardingPage : ContentPage
         };
         await Shell.Current.GoToAsync($"//{nameof(LoginPage)}", parameters);
     }
-
 }

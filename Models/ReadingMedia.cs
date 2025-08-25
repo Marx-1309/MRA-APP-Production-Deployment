@@ -15,12 +15,15 @@ namespace SampleMauiMvvmApp.Models
         [AutoIncrement]
         [Unique]
         public int Id { get; set; }
+
         public string Title { get; set; }
+
         [Column("Data")]
         public string? MeterImage { get; set; }
+
         public int WaterReadingExportDataId { get; set; }
         public int WaterReadingExportId { get; set; }
         public bool IsSynced { get; set; } = false;
-        public string DateTaken { get;set; } = DateTime.UtcNow.ToLongDateString();
+        public string DateTaken { get; set; } = DateTime.UtcNow.ToLongDateString();
     }
 }

@@ -7,18 +7,16 @@ namespace SampleMauiMvvmApp.Models
     {
         [JsonProperty]
         public int MonthID { get; set; }
+
         [JsonProperty]
         public string MonthName { get; set; }
 
         public bool IsActive { get; set; }
         public string TitleProp => $"{MonthName} ";
     }
-
-
 }
-[JsonSerializable(typeof(List<Month>))]
 
+[JsonSerializable(typeof(List<Month>))]
 internal sealed partial class MonthContext : JsonSerializerContext
 {
-
 }

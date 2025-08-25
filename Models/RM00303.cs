@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.Models
+﻿namespace SampleMauiMvvmApp.Models
 {
     public class RM00303
     {
@@ -45,6 +44,7 @@ namespace SampleMauiMvvmApp.Models
         public DateTime CREATDDT { get; set; }
         public DateTime DEX_ROW_TS { get; set; }
         public int DEX_ROW_ID { get; set; }
+
         [OneToMany]
         public List<ReadingExport>? ReadingExport { get; set; }
     }

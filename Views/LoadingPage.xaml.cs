@@ -4,13 +4,14 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class LoadingPage : ContentPage
 {
-    LoadingViewModel _viewModel;
+    private LoadingViewModel _viewModel;
+
     public LoadingPage(LoadingViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = viewModel;
-		this.BindingContext = viewModel;
-	}
+        this.BindingContext = viewModel;
+    }
 
     protected override void OnAppearing()
     {

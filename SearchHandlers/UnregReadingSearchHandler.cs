@@ -1,11 +1,11 @@
-﻿
-namespace SampleMauiMvvmApp.SearchHandlers
+﻿namespace SampleMauiMvvmApp.SearchHandlers
 {
     public class NotesSearchHandler : SearchHandler
     {
         public IList<Notes> Readings { get; set; }
         public string NavigationRoute { get; set; }
         public Type NavigationType { get; set; }
+
         protected override void OnQueryChanged(string oldValue, string newValue)
         {
             base.OnQueryChanged(oldValue, newValue);

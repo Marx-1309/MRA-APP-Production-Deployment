@@ -2,7 +2,8 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class UncapturedReadingsByAreaPage : ContentPage
 {
-    ReadingViewModel _viewModel;
+    private ReadingViewModel _viewModel;
+
     public UncapturedReadingsByAreaPage(ReadingViewModel viewModel)
     {
         InitializeComponent();
@@ -15,5 +16,4 @@ public partial class UncapturedReadingsByAreaPage : ContentPage
     //    base.OnAppearing();
     //    _viewModel.GoToListOfUncapturedReadingsByAreaCommand.Execute(null);
     //}
-
 }

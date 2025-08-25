@@ -10,6 +10,7 @@ namespace SampleMauiMvvmApp.Models
     {
         [PrimaryKey, AutoIncrement]
         public int BillingLocationID { get; set; }
+
         public string Location { get; set; }
         public string? Township { get; set; }
     }

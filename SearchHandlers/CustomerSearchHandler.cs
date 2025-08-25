@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.SearchHandlers 
+﻿namespace SampleMauiMvvmApp.SearchHandlers
 {
     public partial class CustomerSearchHandler : SearchHandler
     {
@@ -7,14 +6,13 @@ namespace SampleMauiMvvmApp.SearchHandlers
         {
         }
 
-
         public CustomerService customerService;
         public DbContext dbContext;
-
 
         public IList<Reading> Readings { get; set; }
         public string NavigationRoute { get; set; }
         public Type NavigationType { get; set; }
+
         protected override void OnQueryChanged(string oldValue, string newValue)
         {
             base.OnQueryChanged(oldValue, newValue);
@@ -26,10 +24,9 @@ namespace SampleMauiMvvmApp.SearchHandlers
             else
             {
                 //ItemsSource = customerWrappers.Where(customer => customer.Custname.ToLower().Contains(newValue.ToLower()));
-                ItemsSource =  Readings.Where(reading => reading.ReadingInfo.ToLower().Contains(newValue.ToLower()));
+                ItemsSource = Readings.Where(reading => reading.ReadingInfo.ToLower().Contains(newValue.ToLower()));
             }
         }
-
 
         protected override async void OnItemSelected(object item)
         {
@@ -40,14 +37,11 @@ namespace SampleMauiMvvmApp.SearchHandlers
                     CUSTNMBR = reading.CUSTOMER_NUMBER,
                 };
 
-
                 if (customer == null)
                 {
                     await Shell.Current.DisplayAlert("Error", "Failed getting customer details", "OK");
                     return;
                 }
-
-               
 
                 if (customer == null)
                 {
@@ -62,7 +56,5 @@ namespace SampleMauiMvvmApp.SearchHandlers
                     });
             }
         }
-
-
     }
 }

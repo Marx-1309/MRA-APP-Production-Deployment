@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.Services
+﻿namespace SampleMauiMvvmApp.Services
 {
     public class BaseService : ObservableObject
     {
@@ -17,7 +16,7 @@ namespace SampleMauiMvvmApp.Services
             this.dbContext = dbContext;
         }
 
-        public BaseService(DbContext dbContext,AppShell appShell, MonthService monthService,
+        public BaseService(DbContext dbContext, AppShell appShell, MonthService monthService,
             ReadingService readingService, CustomerService customerService, ReadingExportService readingExportService)
         {
             this.dbContext = dbContext;
@@ -28,8 +27,6 @@ namespace SampleMauiMvvmApp.Services
             _customerService = customerService;
             _readingExportService = readingExportService;
         }
-
-
 
         public async Task Init(DbContext dbContext)
         {
@@ -49,12 +46,11 @@ namespace SampleMauiMvvmApp.Services
                 , typeof(SampleMauiMvvmApp.Models.ReadingMedia)
                 , typeof(SampleMauiMvvmApp.Models.Customer)
                 , typeof(SampleMauiMvvmApp.Models.Notes));
-                ;
-
+            ;
 
             if (migrationResult.Results != null && migrationResult.Results.Count > 0)
             {
-                bool isNewDatabase = migrationResult.Results.Any(x => x.Value.ToString().ToUpper() == "CREATED");//this line checks if its the first run after migrations 
+                bool isNewDatabase = migrationResult.Results.Any(x => x.Value.ToString().ToUpper() == "CREATED");//this line checks if its the first run after migrations
                 if (isNewDatabase)
                 {
                     await _customerService.GetListOfCustomerFromSql();
@@ -75,6 +71,7 @@ namespace SampleMauiMvvmApp.Services
             //await _readingService.GetListOfReadingExportFromSql();
 
             #region Getting the latest export values(Id,Month & Year)
+
             var latestExportItem = await dbContext.Database.Table<ReadingExport>()
                        .OrderByDescending(r => r.WaterReadingExportID)
                        .FirstOrDefaultAsync();
@@ -84,7 +81,6 @@ namespace SampleMauiMvvmApp.Services
                 WaterReadingExportID = latestExportItem.WaterReadingExportID,
                 MonthID = latestExportItem.MonthID,
                 Year = latestExportItem.Year,
-
             };
 
             if (readingExport.MonthID == 0)
@@ -92,9 +88,8 @@ namespace SampleMauiMvvmApp.Services
                 readingExport.MonthID = 12;
                 readingExport.Year -= 1;
             }
-            #endregion
 
-
+            #endregion Getting the latest export values(Id,Month & Year)
 
             List<Reading> GeneratedReadings = new();
             List<Customer> allCustomers = await dbContext.Database.Table<Customer>().ToListAsync();

@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.Push_Notifications
+﻿namespace SampleMauiMvvmApp.Push_Notifications
 {
     public class LocalNotifications
     {
@@ -27,7 +26,6 @@ namespace SampleMauiMvvmApp.Push_Notifications
             var Mnth = Month.Split(',')[1].Split().ToString();
 
             string currentMonth = string.Empty;
-            
         }
     }
 

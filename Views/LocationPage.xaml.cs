@@ -1,7 +1,8 @@
 namespace SampleMauiMvvmApp.Views;
+
 public partial class LocationPage : ContentPage
 {
-    ReadingViewModel _viewModel;
+    private ReadingViewModel _viewModel;
 
     public LocationPage(ReadingViewModel viewModel)
     {
@@ -14,7 +15,5 @@ public partial class LocationPage : ContentPage
     {
         base.OnAppearing();
         _viewModel.GetLocationsCommand.Execute(null);
-
     }
-
 }

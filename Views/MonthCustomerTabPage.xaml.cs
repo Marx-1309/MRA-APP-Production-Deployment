@@ -2,10 +2,10 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class MonthCustomerTabPage : Shell
 {
-    AppShell appShell;
-	public MonthCustomerTabPage()
-	{
-		InitializeComponent();
-	}
+    private AppShell appShell;
 
+    public MonthCustomerTabPage()
+    {
+        InitializeComponent();
+    }
 }

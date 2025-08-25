@@ -4,16 +4,16 @@ public partial class App : Application
 {
     public static UserInfo UserInfo;
     public static CustomerService CustomerService { get; private set; }
-	public static ReadingService ReadingService { get; private set; }
-	public static BaseService BaseService { get; private set; }
-	public App(CustomerService _customerService, ReadingService _readingService,BaseService _baseService)
-	{
-		InitializeComponent();
+    public static ReadingService ReadingService { get; private set; }
+    public static BaseService BaseService { get; private set; }
 
-		MainPage = new AppShell();
-		CustomerService = _customerService;
-		ReadingService = _readingService;
-		BaseService = _baseService;
+    public App(CustomerService _customerService, ReadingService _readingService, BaseService _baseService)
+    {
+        InitializeComponent();
 
-	}
+        MainPage = new AppShell();
+        CustomerService = _customerService;
+        ReadingService = _readingService;
+        BaseService = _baseService;
+    }
 }

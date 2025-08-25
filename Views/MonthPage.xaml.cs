@@ -4,20 +4,18 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class MonthPage : ContentPage
 {
-    MonthViewModel _viewModel;
+    private MonthViewModel _viewModel;
 
     public MonthPage(MonthViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = viewModel;
-		BindingContext = viewModel;
-	}
+        BindingContext = viewModel;
+    }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
         _viewModel.GetMonthsCommand.Execute(null);
-
     }
-
 }

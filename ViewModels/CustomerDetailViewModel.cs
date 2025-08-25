@@ -1,49 +1,61 @@
-﻿using CommunityToolkit.Maui.Converters;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace SampleMauiMvvmApp.ViewModels
+﻿namespace SampleMauiMvvmApp.ViewModels
 {
     [QueryProperty("Customer", "Customer")]
     [QueryProperty("Reading", "Reading")]
     public partial class CustomerDetailViewModel : BaseViewModel
     {
-        DbContext dbContext;
-        ReadingService readingService;
-        MonthService monthService;
-        CustomerService customerService;
+        private DbContext dbContext;
+        private ReadingService readingService;
+        private MonthService monthService;
+        private CustomerService customerService;
+
         [ObservableProperty]
-        CustomerWrapper customer;
+        private CustomerWrapper customer;
+
         [ObservableProperty]
-        ReadingWrapper reading;
+        private ReadingWrapper reading;
+
         [ObservableProperty]
-        string erfNumber;
+        private string erfNumber;
+
         [ObservableProperty]
-        string custStateErf;
+        private string custStateErf;
+
         [ObservableProperty]
-        long custphone1;
+        private long custphone1;
+
         [ObservableProperty]
-        decimal custPrevReading;
+        private decimal custPrevReading;
+
         [ObservableProperty]
-        decimal custCurrentReading;
+        private decimal custCurrentReading;
+
         [ObservableProperty]
-        string totalUsage;
+        private string totalUsage;
+
         [ObservableProperty]
-        string meterNumber;
+        private string meterNumber;
+
         [ObservableProperty]
-        string routeNumber;
+        private string routeNumber;
+
         [ObservableProperty]
-        ReadingWrapper vmReading;
+        private ReadingWrapper vmReading;
+
         //[ObservableProperty]
         //string? currentMonth;
         [ObservableProperty]
         public static bool isExist;
+
         [ObservableProperty]
-        bool isUpdate;
+        private bool isUpdate;
+
         [ObservableProperty]
-        bool isCurrentReading;
+        private bool isCurrentReading;
 
         private int selectedCompressionQuality = 25;
-        IGeolocation geolocation;
+        private IGeolocation geolocation;
+
         public CustomerDetailViewModel(DbContext _dbContext, ReadingService readingService,
             CustomerService _customerService, MonthService _monthService, IGeolocation geolocation)
         {
@@ -70,7 +82,6 @@ namespace SampleMauiMvvmApp.ViewModels
             //});
         }
 
-
         [RelayCommand]
         public async Task GoBackAsync()
         {
@@ -78,13 +89,11 @@ namespace SampleMauiMvvmApp.ViewModels
         }
 
         [RelayCommand]
-        async Task CustDisplayDetailsAsync()
+        private async Task CustDisplayDetailsAsync()
         {
-            
             var reading = await readingService.GetLastReadingByIdAsync(Customer.Custnmbr);
             if (reading != null)
             {
-                
                 CustPrevReading = (decimal)reading.PREVIOUS_READING;
                 CustCurrentReading = (decimal)reading.CURRENT_READING;
                 MeterNumber = reading.METER_NUMBER;
@@ -93,7 +102,7 @@ namespace SampleMauiMvvmApp.ViewModels
                 erfNumber = reading.ERF_NUMBER;
                 TotalUsage = $"{((decimal?)reading.CURRENT_READING >= (decimal?)reading.PREVIOUS_READING ? (decimal?)reading.CURRENT_READING - (decimal?)reading.PREVIOUS_READING : 0)}";
                 bool isCurrentReading = IsCurrentReadingCaptured(reading.CURRENT_READING);
-                
+
                 //CurrentMonth =  monthService?.GetCurrentMonthNameById(reading.MonthID).GetAwaiter().GetResult();
                 if (isCurrentReading)
                 {
@@ -103,7 +112,6 @@ namespace SampleMauiMvvmApp.ViewModels
                 {
                     IsCurrentReading = false;
                 }
-
 
                 //CustStateErf = $"{reading.AREA.Trim()} - (ERF {reading.ERF_NUMBER.Replace("ERF","").Trim()})" ?? "NO ERF";
                 bool result = IsUpdateMode(CustCurrentReading);
@@ -118,23 +126,20 @@ namespace SampleMauiMvvmApp.ViewModels
 
                 if (string.IsNullOrEmpty(reading.AREA) || !Regex.IsMatch(reading.ERF_NUMBER, @"\d") || reading.AREA is null)
                 {
-                    
                     CustStateErf = $"{reading?.AREA?.Trim()} - NO ERF";
                 }
                 else
                 {
                     CustStateErf = $"{reading.AREA.Trim()} - (ERF {reading.ERF_NUMBER.Replace("ERF", "").Trim()})";
                 }
-                
+
                 Title = $"{reading.CUSTOMER_NAME.Trim()}";
-                
             }
 
             bool isExist = await readingService.IsReadingExistForMonthId(Customer.Custnmbr);
             IsExist = isExist;
             return;
         }
-
 
         [RelayCommand]
         public async Task CreateReadingAsync()
@@ -164,7 +169,7 @@ namespace SampleMauiMvvmApp.ViewModels
                                                         $"Please enter a valid reading!", "OK");
                     return;
                 }
-                
+
                 if (CurrentMonthReading.WaterReadingExportID <= 0)
                 {
                     await Shell.Current.DisplayAlert($"No Reading Export Found",
@@ -175,7 +180,6 @@ namespace SampleMauiMvvmApp.ViewModels
 
                 if (CurrentMonthReading.CURRENT_READING < CustPrevReading && CurrentMonthReading.CURRENT_READING >= 0)
                 {
-
                     await Shell.Current.DisplayAlert($"Current Reading lesser than Previous of:{CustPrevReading}",
                                                           $"Please check current reading and try again!", "OK");
 
@@ -185,11 +189,10 @@ namespace SampleMauiMvvmApp.ViewModels
                     return;
                 }
 
-
                 if (CurrentMonthReading.CURRENT_READING == 0)
                 {
-                   var myAction = await Shell.Current.DisplayAlert($"Zero(0) readings entered",
-                                                          $"Are you sure you want to enter this reading?", "Cancel","Yes");
+                    var myAction = await Shell.Current.DisplayAlert($"Zero(0) readings entered",
+                                                           $"Are you sure you want to enter this reading?", "Cancel", "Yes");
 
                     if (myAction)
                     {
@@ -228,24 +231,22 @@ namespace SampleMauiMvvmApp.ViewModels
                 }
                 else
                 {
-                     newReading = await readingService.InsertReading(Models.Reading.GenerateNewFromWrapper(new ReadingWrapper(CurrentMonthReading)));
+                    newReading = await readingService.InsertReading(Models.Reading.GenerateNewFromWrapper(new ReadingWrapper(CurrentMonthReading)));
                 }
-                
-                
-                IsExist = true;
 
+                IsExist = true;
 
                 if (newReading != null)
                 {
                     var latestMonthName = await monthService.GetMonthNameById();
-                    if(IsUpdate) 
+                    if (IsUpdate)
                     {
-                        await Shell.Current.DisplayAlert($"Success!", $"A reading for {CurrentMonthReading.CUSTOMER_NAME.Substring(0,15).Trim()}... Updated!", "OK");
+                        await Shell.Current.DisplayAlert($"Success!", $"A reading for {CurrentMonthReading.CUSTOMER_NAME.Substring(0, 15).Trim()}... Updated!", "OK");
                         CustCurrentReading = custCurrentReading;
                     }
                     else
                     {
-                        await Shell.Current.DisplayAlert($"Success!", $"A reading for {CurrentMonthReading.CUSTOMER_NAME.Substring(0,15).Trim() ?? $"customer"} Created!", "OK");
+                        await Shell.Current.DisplayAlert($"Success!", $"A reading for {CurrentMonthReading.CUSTOMER_NAME.Substring(0, 15).Trim() ?? $"customer"} Created!", "OK");
                     }
 
                     // Propagate the new reading to the main reading page.
@@ -253,7 +254,6 @@ namespace SampleMauiMvvmApp.ViewModels
                     await Task.Delay(1000);
                     await GoBackAsync();
                 }
-
                 else
                 {
                     await Shell.Current.DisplayAlert($"Error!",
@@ -311,18 +311,17 @@ namespace SampleMauiMvvmApp.ViewModels
                 }
             }
             int isSaved = await dbContext.Database.InsertAsync(capturedImage);
-            if(isSaved == 1)
+            if (isSaved == 1)
             {
-                 await Toast.Make("image saved", CommunityToolkit.Maui.Core.ToastDuration.Short, 10).Show();
+                await Toast.Make("image saved", CommunityToolkit.Maui.Core.ToastDuration.Short, 10).Show();
             }
         }
 
-
         #region Get Current Location
+
         public async void GetLocation()
 
         {
-
             var location = await geolocation.GetLastKnownLocationAsync();
             if (location == null)
 
@@ -331,21 +330,20 @@ namespace SampleMauiMvvmApp.ViewModels
                 {
                     DesiredAccuracy = GeolocationAccuracy.Medium,
                     Timeout = TimeSpan.FromSeconds(10)
-                    ,RequestFullAccuracy = true,
-
+                    ,
+                    RequestFullAccuracy = true,
                 });
                 await Shell.Current.DisplayAlert($"Current Location!", $"Longitude is {location.Longitude} , Latitude {location.Latitude}", "OK");
             }
             return;
-        } 
+        }
 
-    #endregion
+        #endregion Get Current Location
 
         public bool IsValid()
         {
             try
             {
-
                 Guard.Against.OutOfRange<Decimal>((decimal)VmReading.Current_reading, nameof(VmReading.Current_reading), 0, Decimal.MaxValue);
                 Guard.Against.OutOfRange<Decimal>((decimal)VmReading.Current_reading, nameof(VmReading.Current_reading), 100000, Decimal.MinValue);
             }
@@ -383,40 +381,41 @@ namespace SampleMauiMvvmApp.ViewModels
         }
 
         [RelayCommand]
-        async Task ClearForm()
+        private async Task ClearForm()
         {
             await Task.Yield();
             VmReading.C_reading = string.Empty;
         }
 
         #region CustomerLocations
-        string location1 = "OPUWO PROPER - TOWN";
-        string location2 = "OPUWO EXT 2 - OKATUWO";
-        string location3 = "OTUZEMBA";
-        string location4 = "KATUTURA";
-        string location5 = "OURANDA";
-        string location6 = "ORUTJANDJA NORTH";
-        string location7 = "BUSINESS EXT 3";
-        string location8 = "OPUWO EXT 1 - SCHEIDERS HOUSE";
-        string location9 = "OPUWO PROPER & EXT - A HOUSE";
-        string location10 = "OPUWO PROPER EXT 1 & EXT 6 - B HOUSE";
-        string location11 = "OTUZEMBA EXT 1 - ONDUUNJE";
-        string location12 = "ORUTJANDJA WEST";
-        string location13 = "OTUZEMBA INFORMAL";
-        string location14 = "OKATUTURA WATER";
-        string location15 = "OKATUTURA RECEIPTION";
-        string location16 = "ORUTJANDJA WATER";
-        string location17 = "OLD BUSINESS";
-        string location18 = "SHACK DWELLERS";
-        string location19 = "OTUZEMBA EXT 2";
-        string location20 = "OKATUWO INFORMAL";
-        string location21 = "ETATI PROPER EXT 1 & 2";
-        string location22 = "OPUWO EXT 12";
-        string location23 = "OPUWO EXT 7";
-        string location24 = "OPUWO EXT 8";
-        string location25 = "UNCLASSIFIED";
 
-        #endregion
+        private string location1 = "OPUWO PROPER - TOWN";
+        private string location2 = "OPUWO EXT 2 - OKATUWO";
+        private string location3 = "OTUZEMBA";
+        private string location4 = "KATUTURA";
+        private string location5 = "OURANDA";
+        private string location6 = "ORUTJANDJA NORTH";
+        private string location7 = "BUSINESS EXT 3";
+        private string location8 = "OPUWO EXT 1 - SCHEIDERS HOUSE";
+        private string location9 = "OPUWO PROPER & EXT - A HOUSE";
+        private string location10 = "OPUWO PROPER EXT 1 & EXT 6 - B HOUSE";
+        private string location11 = "OTUZEMBA EXT 1 - ONDUUNJE";
+        private string location12 = "ORUTJANDJA WEST";
+        private string location13 = "OTUZEMBA INFORMAL";
+        private string location14 = "OKATUTURA WATER";
+        private string location15 = "OKATUTURA RECEIPTION";
+        private string location16 = "ORUTJANDJA WATER";
+        private string location17 = "OLD BUSINESS";
+        private string location18 = "SHACK DWELLERS";
+        private string location19 = "OTUZEMBA EXT 2";
+        private string location20 = "OKATUWO INFORMAL";
+        private string location21 = "ETATI PROPER EXT 1 & 2";
+        private string location22 = "OPUWO EXT 12";
+        private string location23 = "OPUWO EXT 7";
+        private string location24 = "OPUWO EXT 8";
+        private string location25 = "UNCLASSIFIED";
+
+        #endregion CustomerLocations
 
         public async Task<string> AddNewCustomerLocation(string customerNo)
         {
@@ -445,9 +444,8 @@ namespace SampleMauiMvvmApp.ViewModels
                     location1, location2, location3, location4, location5, location6,
                     location7, location8, location9, location10, location11, location12,
                     location13, location14, location15, location16, location17, location18,
-                    location19, location20, location21, location22, location23, location24,location25
+                    location19, location20, location21, location22, location23, location24, location25
                 );
-
 
                 if (!string.IsNullOrEmpty(userLocation) &&
                     !string.IsNullOrWhiteSpace(userLocation) &&
@@ -455,15 +453,13 @@ namespace SampleMauiMvvmApp.ViewModels
                 {
                     var newReading = await readingService.GetCurrentMonthReadingByCustIdAsync(cstObj.CUSTOMER_NUMBER);
                     newReading.AREA = userLocation.Trim();
-                    
+
                     var custNewArea = await readingService.UpsertArea(newReading);
                     hasLocation = true;
                     return custNewArea;
                 }
-
-                
             }
-            
+
             return "";
         }
 
@@ -502,9 +498,8 @@ namespace SampleMauiMvvmApp.ViewModels
                     return cstObj?.METER_NUMBER;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
             }
             return "";
         }
@@ -538,7 +533,7 @@ namespace SampleMauiMvvmApp.ViewModels
                         if (!string.IsNullOrEmpty(custNewArea))
                         {
                             await Shell.Current.DisplayAlert("Success!", "Location Updated!", "OK");
-                            CustStateErf =  custNewArea;
+                            CustStateErf = custNewArea;
                         }
                     }
                 }
@@ -549,6 +544,5 @@ namespace SampleMauiMvvmApp.ViewModels
             }
             return "";
         }
-
     }
 }

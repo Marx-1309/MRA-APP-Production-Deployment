@@ -2,19 +2,19 @@
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
             .UseSkiaSharp()
             .UseMauiCommunityToolkit()
             //.UseLocalNotification()
             .ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
@@ -30,7 +30,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<MonthService>();
         builder.Services.AddSingleton<AuthenticationService>();
         builder.Services.AddTransient<AppShell>();
-
 
         builder.Services.AddSingleton<OnboardingPage>();
         builder.Services.AddSingleton<LoadingPage>();
@@ -51,7 +50,6 @@ public static class MauiProgram
         builder.Services.AddScoped<CapturedReadingsPage>();
         builder.Services.AddTransient<LocationPage>();
         builder.Services.AddScoped<UncapturedReadingsByAreaPage>();
-
 
         builder.Services.AddSingleton<LoginViewModel>();
         builder.Services.AddSingleton<LoadingViewModel>();

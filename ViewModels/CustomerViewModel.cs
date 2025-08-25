@@ -6,13 +6,13 @@
         // Then ObservableCollection<Customer> will not detect any changes of Customer's properties and UI will not be updated
         // Therefore, CustomerWrapper with ObservableObject and ObservableProperty is needed to facilitate the UI update
         //public ObservableCollection<Customer> Customers { get; set; } = new();
- 
+
         public static List<Customer> CustomersListForSearch { get; private set; } = new List<Customer>();
 
         public ObservableCollection<Customer> SqlCustomers { get; set; } = new();
         public BaseService baseService;
-        readonly CustomerService _customerService;
-        IGeolocation geolocation;
+        private readonly CustomerService _customerService;
+        private IGeolocation geolocation;
 
         public CustomerViewModel(CustomerService customerService, IGeolocation geolocation)
         {
@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                        foreach(var customer in customers)
+                        foreach (var customer in customers)
                         {
                             SqlCustomers.Add(customer);
                         }
@@ -66,9 +66,6 @@
                 IsBusy = false;
             }
         }
-
-
-
 
         [RelayCommand]
         public async Task GoToDetailsAsync(string customerId)

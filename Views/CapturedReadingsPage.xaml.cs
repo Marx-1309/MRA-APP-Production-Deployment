@@ -4,7 +4,8 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class CapturedReadingsPage : ContentPage
 {
-    ReadingViewModel _viewModel;
+    private ReadingViewModel _viewModel;
+
     public CapturedReadingsPage(ReadingViewModel viewModel)
     {
         InitializeComponent();

@@ -21,7 +21,7 @@
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Menus}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2"/>
+                <GridItemsLayout Orientation="Vertical" Span="2" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -32,7 +32,7 @@
                            CornerRadius="10"
                            HasShadow="True">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer 
+                            <TapGestureRecognizer
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MenuViewModel}}, Path=GoToDetailsCommand}"
                                 CommandParameter="{Binding .}" />
                         </Frame.GestureRecognizers>
@@ -47,7 +47,7 @@
                                    FontAttributes="Bold"
                                    FontSize="16"
                                    HorizontalOptions="Center"
-                                   TextColor="Black"/>
+                                   TextColor="Black" />
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
@@ -65,9 +65,3 @@
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
-
-
-
-
-
-

@@ -1,17 +1,18 @@
-﻿
-using SampleMauiMvvmApp.Interfaces;
+﻿using SampleMauiMvvmApp.Interfaces;
 
 namespace SampleMauiMvvmApp.Services
 {
-
     public partial class MonthService : BaseService, IMonthService
     {
-        HttpClient httpClient;
+        private HttpClient httpClient;
+
         public MonthService(DbContext dbContext) : base(dbContext)
         {
             this.httpClient = new HttpClient();
         }
-        List<Month> MonthList;
+
+        private List<Month> MonthList;
+
         public async Task<List<Month>> GetMonths()
         {
             if (MonthList?.Count > 0)
@@ -25,7 +26,6 @@ namespace SampleMauiMvvmApp.Services
                 }
                 catch (Exception ex)
                 {
-
                 }
             }
             return MonthList;
@@ -47,7 +47,7 @@ namespace SampleMauiMvvmApp.Services
             }
             else
             {
-                return null; 
+                return null;
             }
         }
 
@@ -57,7 +57,7 @@ namespace SampleMauiMvvmApp.Services
             {
                 try
                 {
-                    var month = await dbContext.Database.Table<Month>().Where(m=>m.MonthID == Id).FirstOrDefaultAsync();
+                    var month = await dbContext.Database.Table<Month>().Where(m => m.MonthID == Id).FirstOrDefaultAsync();
                     string monthName = month.MonthName;
                     return monthName;
                 }
@@ -69,7 +69,8 @@ namespace SampleMauiMvvmApp.Services
             return "";
         }
 
-        List<Reading> ReadingList;
+        private List<Reading> ReadingList;
+
         public async Task<List<Reading>> GetReadingsByMonthIdAsync(int MonthId)
         {
             if (ReadingList?.Count > 0)
@@ -91,7 +92,7 @@ namespace SampleMauiMvvmApp.Services
             return ReadingList;
         }
 
-        List<Month> listMonths;
+        private List<Month> listMonths;
 
         public async Task<List<Month>> GetListOfMonthsFromSql()
         {
@@ -146,7 +147,6 @@ namespace SampleMauiMvvmApp.Services
 
                                 var response2 = await dbContext.Database.InsertAsync(item);
                             }
-
                         }
                         else
                         {
@@ -177,7 +177,7 @@ namespace SampleMauiMvvmApp.Services
                 }
 
                 // Find the current month from the reading's MonthID
-                var currentMonth =  dbContext.Database.Table<Month>()
+                var currentMonth = dbContext.Database.Table<Month>()
                                                          .FirstOrDefaultAsync(m => m.MonthID == reading.MonthID).GetAwaiter().GetResult();
                 if (currentMonth == null)
                 {
@@ -229,7 +229,6 @@ namespace SampleMauiMvvmApp.Services
             }
         }
 
-
         public async Task<string?> GetLatestExportItemMonthName()
         {
             try
@@ -268,8 +267,8 @@ namespace SampleMauiMvvmApp.Services
         {
             try
             {
-                int isWithReadings = await  dbContext.Database.Table<Reading>().Where(r=>r.MonthID == month.MonthID).CountAsync();
-                if(isWithReadings>0)
+                int isWithReadings = await dbContext.Database.Table<Reading>().Where(r => r.MonthID == month.MonthID).CountAsync();
+                if (isWithReadings > 0)
                 {
                     return true;
                 }

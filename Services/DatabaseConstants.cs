@@ -1,9 +1,8 @@
-﻿
-namespace SampleMauiMvvmApp.Services
+﻿namespace SampleMauiMvvmApp.Services
 {
     public class DatabaseConstants
     {
-        public const string DatabaseFileName = "OTCBS.db3";
+        public const string DatabaseFileName = "OTCBS_DB.db3";
 
         public const SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
@@ -12,7 +11,7 @@ namespace SampleMauiMvvmApp.Services
             SQLite.SQLiteOpenFlags.Create |
             // enable multi-threaded database access
             SQLite.SQLiteOpenFlags.SharedCache;
-            
-        public static string DatabasePath =>Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFileName);
+
+        public static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseFileName);
     }
 }

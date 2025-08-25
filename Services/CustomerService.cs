@@ -1,18 +1,19 @@
-﻿
-using SampleMauiMvvmApp.Interfaces;
+﻿using SampleMauiMvvmApp.Interfaces;
 
 namespace SampleMauiMvvmApp.Services
 {
     // https://www.youtube.com/watch?v=XFP8Np-uRWc&ab_channel=JamesMontemagno
     public class CustomerService : BaseService, ICustomerService
     {
-        readonly ReadingService _readingService;
-        HttpClient _httpClient;
+        private readonly ReadingService _readingService;
+        private HttpClient _httpClient;
+
         public CustomerService(DbContext dbContext, ReadingService readingService) : base(dbContext)
         {
             _readingService = readingService;
             _httpClient = new HttpClient();
         }
+
         public async Task<List<Customer>> GetAllCustomers()
         {
             try
@@ -54,7 +55,6 @@ namespace SampleMauiMvvmApp.Services
             try
             {
                 return await dbContext.Database.Table<Customer>().Where(r => r.CUSTNMBR == reading.CUSTOMER_NUMBER).FirstOrDefaultAsync();
-
             }
             catch
             {
@@ -63,13 +63,11 @@ namespace SampleMauiMvvmApp.Services
             return null;
         }
 
-
         public async Task<Customer> GetCustomerByReadingId(string CustomerIdFromReading)
         {
             var customer = await dbContext.Database.Table<Customer>().FirstOrDefaultAsync(x => x.CUSTNMBR == CustomerIdFromReading);
             return customer;
         }
-
 
         //    List<Customer> CustomerList;
         //    public async Task<List<Customer>> GetListOfCustomerFromSql()
@@ -94,7 +92,6 @@ namespace SampleMauiMvvmApp.Services
 
         //                            // Insert data into the SQLite database
         //                            await dbContext.Database.InsertAllAsync(CustomerList);
-
 
         //                return CustomerList;
         //            }
@@ -122,7 +119,8 @@ namespace SampleMauiMvvmApp.Services
         //    return CustomerList;
         //}
 
-        List<Customer> CustomerList;
+        private List<Customer> CustomerList;
+
         public async Task<List<Customer>> GetListOfCustomerFromSql()
         {
             string initialize = null;
@@ -138,7 +136,6 @@ namespace SampleMauiMvvmApp.Services
                     string requestUrl = $"{baseUrl}?billingSite={Uri.EscapeDataString(userSite)}";
 
                     var response2 = await _httpClient.GetAsync(requestUrl);
-
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -163,7 +160,6 @@ namespace SampleMauiMvvmApp.Services
                             .Where(customer => !sqliteCustomerList.Any(sqliteCustomer => sqliteCustomer.CUSTNMBR == customer.CUSTNMBR))
                             .ToList();
 
-
                         if (newCustomersNotInSQLite.Count > 0)
                         {
                             await dbContext.Database.InsertAllAsync(newCustomersNotInSQLite);
@@ -187,9 +183,6 @@ namespace SampleMauiMvvmApp.Services
             }
             return CustomerList;
         }
-
-
-
 
         public async Task SetAuthToken()
         {

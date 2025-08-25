@@ -1,11 +1,5 @@
 //using Plugin.Media;
 //using Plugin.Media.Abstractions;
-using SampleMauiMvvmApp.Fakers;
-using SampleMauiMvvmApp.Models;
-using SampleMauiMvvmApp.ModelWrappers;
-using SampleMauiMvvmApp.ViewModels;
-using System.IO.Compression;
-
 namespace SampleMauiMvvmApp.Views;
 
 //[QueryProperty("CustomerId", "id")]
@@ -13,6 +7,7 @@ public partial class CustomerDetailPage : ContentPage
 {
     //public Customer CustomerId { get; set; }
     private CustomerDetailViewModel _viewModel;
+
     public CustomerDetailPage(CustomerDetailViewModel viewModel)
     {
         InitializeComponent();
@@ -41,17 +36,11 @@ public partial class CustomerDetailPage : ContentPage
 
     //    if (result is null) return;
 
-
-
     //    var fileInfo = new FileInfo(result?.Path);
     //    var fileLength = fileInfo.Length;
-
-
 
     //    // Convert the image to Base64 string
     //    byte[] imageData = File.ReadAllBytes(result?.Path);
     //    string base64Image = Convert.ToBase64String(imageData);
     //}
-
-
 }

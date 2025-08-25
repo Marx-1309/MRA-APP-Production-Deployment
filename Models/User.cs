@@ -1,11 +1,11 @@
-﻿
-namespace SampleMauiMvvmApp.Models
+﻿namespace SampleMauiMvvmApp.Models
 {
     [Table("User")]
-    public class User 
+    public class User
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }

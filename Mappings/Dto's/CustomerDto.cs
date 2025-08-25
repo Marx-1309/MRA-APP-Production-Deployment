@@ -1,7 +1,6 @@
 ﻿using SampleMauiMvvmApp.Mappings.Dto_s;
 using System.Text.Json.Serialization;
 
-
 namespace SampleMauiMvvmApp.Mappings.Dto_s
 {
     public class CustomerDto
@@ -11,14 +10,10 @@ namespace SampleMauiMvvmApp.Mappings.Dto_s
         public string CUSTCLAS { get; set; }
         public string STATE { get; set; }
         public string ZIP { get; set; }
-
-
     }
 }
 
 [JsonSerializable(typeof(List<CustomerDto>))]
-
 internal sealed partial class CustomerDtoContext : JsonSerializerContext
 {
-
 }

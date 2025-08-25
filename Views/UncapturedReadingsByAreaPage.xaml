@@ -13,7 +13,7 @@
     </ContentPage.ToolbarItems>-->
 
     <!--<Shell.SearchHandler>
-        <searchHandlers:CustomerSearchHandler 
+        <searchHandlers:CustomerSearchHandler
             Placeholder="Search By Erf,Name or Meter No"
             ShowsResults="True"
             QueryIcon="search"
@@ -24,11 +24,11 @@
                 <DataTemplate x:DataType="model:Reading">
                     <Grid Margin="5" RowDefinitions="Auto" ColumnDefinitions="40,Auto">
                         <Image Grid.Row="0" Grid.Column="0" Source="user" HeightRequest="35" WidthRequest="35" />
-                        <Label Grid.Row="0" Grid.Column="1" 
-                               Text="{Binding CUSTOMER_NAME}" 
-                               FontSize="18" 
-                               HorizontalTextAlignment="Center" 
-                               VerticalTextAlignment="Center"/>
+                        <Label Grid.Row="0" Grid.Column="1"
+                               Text="{Binding CUSTOMER_NAME}"
+                               FontSize="18"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </searchHandlers:CustomerSearchHandler.ItemTemplate>
@@ -39,7 +39,7 @@
           ColumnSpacing="5"
           RowSpacing="0"
           BackgroundColor="LightGrey">
-        <ScrollView Grid.ColumnSpan="2" >
+        <ScrollView Grid.ColumnSpan="2">
             <CollectionView ItemsSource="{Binding AllReadings}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Reading">
@@ -67,7 +67,6 @@
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>
-                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>

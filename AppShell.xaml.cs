@@ -3,7 +3,7 @@
 public partial class AppShell : Shell
 {
     public AppShell()
-	{
+    {
         InitializeComponent();
         //CheckIfValidToken();
         //Routes
@@ -35,7 +35,6 @@ public partial class AppShell : Shell
         CheckIfValidToken();
     }
 
-
     //private async Task DisplayLoggedInUserInfo()
     //{
     //    await Task.Delay(1000);
@@ -60,16 +59,15 @@ public partial class AppShell : Shell
                  new Dictionary<string, object>()
                  {
                     { "Refresh","Refresh"}
-                 }); 
+                 });
     }
 
     public async Task CheckIfValidToken()
     {
         await Task.Delay(50);
-        IsBusy = true; 
+        IsBusy = true;
         //Retrieve Token from internal Secure Storage
         var token = await SecureStorage.GetAsync("Token");
-      
 
         if (string.IsNullOrEmpty(token))
         {

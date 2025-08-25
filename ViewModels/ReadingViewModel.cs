@@ -1,19 +1,17 @@
-﻿
-
-namespace SampleMauiMvvmApp.ViewModels
+﻿namespace SampleMauiMvvmApp.ViewModels
 {
     [QueryProperty("Area", "Area")]
     [QueryProperty("Refresh", "Refresh")]
     public partial class ReadingViewModel : BaseViewModel
     {
-        
-        ReadingService readingService;
-        ReadingExportService readingExportService;
-        CustomerService customerService;
-        MonthService monthService;
-        DbContext dbContext;
-        AppShell appShell;
-        public ReadingViewModel(ReadingService _readingService,ReadingExportService _readingExportService, CustomerService _customerService, MonthService _monthService, DbContext _dbContext,AppShell _appShell)
+        private ReadingService readingService;
+        private ReadingExportService readingExportService;
+        private CustomerService customerService;
+        private MonthService monthService;
+        private DbContext dbContext;
+        private AppShell appShell;
+
+        public ReadingViewModel(ReadingService _readingService, ReadingExportService _readingExportService, CustomerService _customerService, MonthService _monthService, DbContext _dbContext, AppShell _appShell)
         {
             this.readingService = _readingService;
             this.readingExportService = _readingExportService;
@@ -24,23 +22,31 @@ namespace SampleMauiMvvmApp.ViewModels
         }
 
         [ObservableProperty]
-        bool isRefreshing;
+        private bool isRefreshing;
+
         [ObservableProperty]
-        string area;
+        private string area;
+
         [ObservableProperty]
-        bool isAllLocationsCaptured;
+        private bool isAllLocationsCaptured;
+
         [ObservableProperty]
-        int capturedReadingsCount;
+        private int capturedReadingsCount;
+
         [ObservableProperty]
-        int uncapturedReadingsCount;
+        private int uncapturedReadingsCount;
+
         [ObservableProperty]
-        int zeroReadingsCount;
+        private int zeroReadingsCount;
+
         [ObservableProperty]
-        int abnormalCount;
+        private int abnormalCount;
+
         [ObservableProperty]
-        string uncapturedTitle;
+        private string uncapturedTitle;
+
         [ObservableProperty]
-        string capturedTitle;
+        private string capturedTitle;
 
         public ObservableCollection<Reading> AllReadings { get; set; } = new();
         public ObservableCollection<LocationReadings> AllLocation { get; set; } = new();
@@ -49,9 +55,8 @@ namespace SampleMauiMvvmApp.ViewModels
         public ObservableCollection<Reading> Readings { get; set; } = new ObservableCollection<Reading>();
         public ObservableCollection<Reading> exceptionReadings { get; set; } = new ObservableCollection<Reading>();
 
-
         [RelayCommand]
-        async Task GetCapturedReadings()
+        private async Task GetCapturedReadings()
         {
             if (IsBusy) return;
 
@@ -61,10 +66,10 @@ namespace SampleMauiMvvmApp.ViewModels
                 var listOfCapturedReadings = await readingService.GetAllCapturedReadings();
                 if (listOfCapturedReadings != null && listOfCapturedReadings.Count > 0)
                 {
-                    AllReadings.Clear(); 
+                    AllReadings.Clear();
                     foreach (var reading in listOfCapturedReadings)
                     {
-                        var IsFlagged = IsReadingFlagged((decimal)reading.PREVIOUS_READING,reading.CURRENT_READING);
+                        var IsFlagged = IsReadingFlagged((decimal)reading.PREVIOUS_READING, reading.CURRENT_READING);
                         if (IsFlagged)
                         {
                             reading.IsFlagged = true;
@@ -80,8 +85,7 @@ namespace SampleMauiMvvmApp.ViewModels
                             reading.ReadingNotTaken = true;
                         }
                         Task.Delay(50);
-                        AllReadings.Add(reading); 
-
+                        AllReadings.Add(reading);
                     }
                     //foreach (var reading in listOfCapturedReadings)
                     //{
@@ -95,36 +99,32 @@ namespace SampleMauiMvvmApp.ViewModels
                     .Where(r => r != null && (r.CURRENT_READING - r.PREVIOUS_READING) > 20)
                     .Count();
                     ZeroReadingsCount = listOfCapturedReadings.Where(r => r?.CURRENT_READING == r.PREVIOUS_READING).Count();
-                    
+
                     CapturedTitle = $"Captured readings : {CapturedReadingsCount} , Zero readings : {ZeroReadingsCount} , Abnormal readings : {AbnormalCount}";
-
-
                 }
                 else
                 {
                     await Shell.Current.DisplayAlert("Not Found", "No Captured readings found", "OK");
                 }
             }
-            catch (Exception 
+            catch (Exception
             ex)
             {
                 await Shell.Current.DisplayAlert("Unable to retrieve any readings", "Please try again", "OK");
             }
             finally
             {
-                IsBusy = false; 
+                IsBusy = false;
                 IsRefreshing = false;
             }
             isRefreshing = false;
             IsBusy = false;
         }
 
-
-
         [RelayCommand]
-        async Task GetUncapturedReadings()
+        private async Task GetUncapturedReadings()
         {
-            if (IsBusy) return; 
+            if (IsBusy) return;
 
             try
             {
@@ -132,8 +132,8 @@ namespace SampleMauiMvvmApp.ViewModels
                 var listOfUnCapturedReadings = await readingService.GetAllUncapturedReadings();
                 if (listOfUnCapturedReadings != null && listOfUnCapturedReadings.Count > 0)
                 {
-                    AllReadings.Clear(); 
-          
+                    AllReadings.Clear();
+
                     foreach (var reading in listOfUnCapturedReadings)
                     {
                         if (reading.CURRENT_READING >= 1)
@@ -147,10 +147,9 @@ namespace SampleMauiMvvmApp.ViewModels
                             reading.ReadingNotTaken = true;
                         }
                         Task.Delay(500);
-                        AllReadings.Add(reading); 
-
+                        AllReadings.Add(reading);
                     }
-                  
+
                     foreach (var reading in listOfUnCapturedReadings)
                     {
                         Readings.Add(reading);
@@ -176,14 +175,13 @@ namespace SampleMauiMvvmApp.ViewModels
             }
             finally
             {
-                IsBusy = false; 
+                IsBusy = false;
                 IsRefreshing = false;
             }
 
             isRefreshing = false;
             IsBusy = false;
         }
-
 
         [RelayCommand]
         public async Task GoToCustomerDetails(Reading reading)
@@ -196,7 +194,6 @@ namespace SampleMauiMvvmApp.ViewModels
                 await Shell.Current.DisplayAlert("Error", "Failed getting customer details", "OK");
                 return;
             }
-            
 
             await Shell.Current.GoToAsync($"{nameof(CustomerDetailPage)}", true,
                 new Dictionary<string, object>()
@@ -204,7 +201,6 @@ namespace SampleMauiMvvmApp.ViewModels
                     { nameof(Customer), new CustomerWrapper(customer) }
                 });
         }
-
 
         [RelayCommand]
         public async Task ScanForNewExport()
@@ -266,7 +262,7 @@ namespace SampleMauiMvvmApp.ViewModels
         //Get Locations list
 
         [RelayCommand]
-        async Task GetLocations()
+        private async Task GetLocations()
         {
             try
             {
@@ -275,8 +271,7 @@ namespace SampleMauiMvvmApp.ViewModels
                 var listOfLocations = await readingService.GetListOfLocations();
                 if (listOfLocations != null && listOfLocations.Count > 0)
                 {
-
-                    AllLocation.Clear(); 
+                    AllLocation.Clear();
 
                     foreach (var location in listOfLocations)
                     {
@@ -294,7 +289,6 @@ namespace SampleMauiMvvmApp.ViewModels
                     LocationListForSearch.Clear();
                     Task.Delay(50);
                     LocationListForSearch.AddRange(listOfLocations);
-
                 }
                 else
                 {
@@ -307,7 +301,7 @@ namespace SampleMauiMvvmApp.ViewModels
             }
             finally
             {
-                IsBusy = false; 
+                IsBusy = false;
                 IsRefreshing = false;
             }
         }
@@ -322,7 +316,8 @@ namespace SampleMauiMvvmApp.ViewModels
                 {
                     await Shell.Current.GoToAsync("..");
                     return;
-                } ;
+                }
+                ;
                 var listReadings = new List<Reading>();
                 //if (monthId.MonthID <= 0) return;
                 var uncapturedReadings = await readingService.GetUncapturedReadingsByArea(area);
@@ -340,53 +335,47 @@ namespace SampleMauiMvvmApp.ViewModels
                         AllReadings.Add(i);
                     }
 
-                   await Shell.Current.GoToAsync($"{nameof(UncapturedReadingsByAreaPage)}", true,
-                   new Dictionary<string, object>()
-                   {
+                    await Shell.Current.GoToAsync($"{nameof(UncapturedReadingsByAreaPage)}", true,
+                    new Dictionary<string, object>()
+                    {
                     { nameof(List<Reading>), new List<Reading>(AllReadings) }
-                   });
-
+                    });
                 }
 
                 if (uncapturedReadings.Count == 0)
                 {
                     await Shell.Current.DisplayAlert("No Readings", $"No records found here.", "OK");
-                     if (IsBusy = true) { IsBusy = !IsBusy; }
-                     await Task.Delay(500);
+                    if (IsBusy = true) { IsBusy = !IsBusy; }
+                    await Task.Delay(500);
                     await Shell.Current.GoToAsync("..");
-
-                    
                 }
                 IsBusy = false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 IsBusy = false;
             }
-            
-            
         }
 
         [RelayCommand]
         public async Task GoToExceptionList()
         {
-
-
             string email = Preferences.Default.Get("username", "Unknown");
             string[] parts = email.Split('@');
-
 
             try
             {
                 var i = await dbContext.Database.Table<Reading>().Where(r => r.CURRENT_READING > 0).ToListAsync();
-                var ii = i.Where(r => r.CURRENT_READING - r.PREVIOUS_READING >= 20).Select(reading => new {
-                                                                                                            Name = string.Join(" ", reading.CUSTOMER_NAME.Split().Take(2)),
-                                                                                                            Meter = reading.METER_NUMBER,
-                                                                                                            CurrentReading = reading.CURRENT_READING,
-                                                                                                            WaterUsage = reading.CURRENT_READING - reading.PREVIOUS_READING,
-                                                                                                            MeterReader = reading.METER_READER,
-                                                                                                            ErfNo = reading.ERF_NUMBER,
-                                                                                                            Date = reading.ReadingDate,}).ToList();
+                var ii = i.Where(r => r.CURRENT_READING - r.PREVIOUS_READING >= 20).Select(reading => new
+                {
+                    Name = string.Join(" ", reading.CUSTOMER_NAME.Split().Take(2)),
+                    Meter = reading.METER_NUMBER,
+                    CurrentReading = reading.CURRENT_READING,
+                    WaterUsage = reading.CURRENT_READING - reading.PREVIOUS_READING,
+                    MeterReader = reading.METER_READER,
+                    ErfNo = reading.ERF_NUMBER,
+                    Date = reading.ReadingDate,
+                }).ToList();
                 exceptionReadings.Clear();
 
                 foreach (var item in ii)
@@ -402,16 +391,15 @@ namespace SampleMauiMvvmApp.ViewModels
                         METER_READER = item.MeterReader
                     };
 
-                    if(string.IsNullOrEmpty(exReading.METER_READER))
+                    if (string.IsNullOrEmpty(exReading.METER_READER))
                     {
                         exReading.METER_READER = parts[0];
                     }
                     Task.Delay(50);
                     exceptionReadings.Add(exReading);
                 }
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 StatusMessage = ex.ToString();
             }
@@ -432,6 +420,7 @@ namespace SampleMauiMvvmApp.ViewModels
                 return false;
             }
         }
+
         public bool IsLocationCleared(int count)
         {
             if (count > 0)
@@ -443,19 +432,20 @@ namespace SampleMauiMvvmApp.ViewModels
                 return true;
             }
         }
+
         [RelayCommand]
         public async Task ResetReading()
         {
             string response = "x";
-             response = await Shell.Current.DisplayPromptAsync(
-                "Delete ,Reset or Sync",
-                "",
-                "Confirm",
-                "Cancel",
-                "Enter your command here...",
-                keyboard: Keyboard.Text);
+            response = await Shell.Current.DisplayPromptAsync(
+               "Delete ,Reset or Sync",
+               "",
+               "Confirm",
+               "Cancel",
+               "Enter your command here...",
+               keyboard: Keyboard.Text);
 
-            if(response == "%sync%")
+            if (response == "%sync%")
             {
                 IsBusy = true;
                 await Task.Delay(5000);
@@ -466,16 +456,15 @@ namespace SampleMauiMvvmApp.ViewModels
                     i.AreaUpdated = true;
                     i.ReadingNotTaken = false;
                     i.ReadingTaken = true;
-
                 }
                 var n = dbContext.Database.UpdateAllAsync(readingsList).GetAwaiter().GetResult();
 
                 IsBusy = false;
-                await Shell.Current.DisplayAlert("Success", response.Replace("%","").ToUpper() + " Completed!", "Ok");
+                await Shell.Current.DisplayAlert("Success", response.Replace("%", "").ToUpper() + " Completed!", "Ok");
             }
             if (response == "%reset%")
             {
-                IsBusy=true;
+                IsBusy = true;
                 await Task.Delay(5000);
                 var readingsList = dbContext.Database.Table<Reading>().ToListAsync().GetAwaiter().GetResult();
                 foreach (var i in readingsList)
@@ -494,7 +483,9 @@ namespace SampleMauiMvvmApp.ViewModels
             {
                 IsBusy = true;
                 await Task.Delay(5000);
+
                 #region deleting existing db data
+
                 List<ReadingExport> result1 = await dbContext.Database.Table<ReadingExport>().Where(i => i.WaterReadingExportID > 0).ToListAsync();
                 List<Reading> result2 = await dbContext.Database.Table<Reading>().Where(i => i.Id > 0).ToListAsync();
                 List<Customer> result3 = await dbContext.Database.Table<Customer>().Where(i => i.CUSTNMBR != null).ToListAsync();
@@ -525,13 +516,14 @@ namespace SampleMauiMvvmApp.ViewModels
                 {
                     await dbContext.Database.Table<ReadingMedia>().DeleteAsync(r => r.Id > 0);
                 }
-                #endregion
+
+                #endregion deleting existing db data
+
                 IsBusy = false;
 
-                await Shell.Current.DisplayAlert("Success",response.Replace("%", "").ToUpper() + " Completed!","Ok");
-
+                await Shell.Current.DisplayAlert("Success", response.Replace("%", "").ToUpper() + " Completed!", "Ok");
             }
-            if(!(response == "%sync%" || response == "%reset%" || response == "%delete%" || response == null))
+            if (!(response == "%sync%" || response == "%reset%" || response == "%delete%" || response == null))
             {
                 DisplayToast("Command not recognized");
             }
@@ -539,11 +531,6 @@ namespace SampleMauiMvvmApp.ViewModels
             {
                 return;
             }
-            
         }
     }
 }
-
-
-    
-

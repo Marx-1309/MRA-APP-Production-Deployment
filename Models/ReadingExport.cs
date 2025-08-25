@@ -1,8 +1,4 @@
-﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
-
-
-namespace SampleMauiMvvmApp.Models
+﻿namespace SampleMauiMvvmApp.Models
 {
     [Table("WaterReadingExport")]
     public class ReadingExport
@@ -12,10 +8,11 @@ namespace SampleMauiMvvmApp.Models
 
         [ForeignKey(typeof(Month), Name = "MonthID")]
         public int MonthID { get; set; }
+
         public int Year { get; set; }
 
         public string? SALSTERR { get; set; }
-      
+
         [OneToMany]
         public List<Reading>? Readings { get; set; }
     }

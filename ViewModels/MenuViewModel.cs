@@ -1,10 +1,8 @@
-﻿
-using CommunityToolkit.Maui.Core;
-
+﻿using CommunityToolkit.Maui.Core;
 
 namespace SampleMauiMvvmApp.ViewModels
 {
-    partial class MenuViewModel : BaseViewModel
+    internal partial class MenuViewModel : BaseViewModel
     {
         public ObservableCollection<SampleMauiMvvmApp.Models.Menu> Menus { get; set; }
 
@@ -45,14 +43,14 @@ namespace SampleMauiMvvmApp.ViewModels
                     Label= "",
                     Url = "ReflushPage",
                     IsActive=true,
+                },
+                new Menu{
+                    Name = "Google  Maps",
+                    Image = "map_icon3.jpg",
+                    Label= "",
+                    Url = "",
+                    IsActive=true,
                 }
-                //new Menu{
-                //    Name = "Manage Profile",
-                //    Image = "manage_profile.png",
-                //    Label= "",
-                //    Url = "",
-                //    IsActive=true,
-                //},
                 //new Menu{
                 //    Name = "Statistics",
                 //    Image = "reading_stats.jpg",
@@ -63,8 +61,8 @@ namespace SampleMauiMvvmApp.ViewModels
             };
         }
 
-
         #region Prepare a toast/snackbar
+
         public Snackbar SnackBar()
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -91,15 +89,14 @@ namespace SampleMauiMvvmApp.ViewModels
             return (Snackbar)snackbar;
         }
 
-
-        #endregion
+        #endregion Prepare a toast/snackbar
 
         [RelayCommand]
-        async Task GoToDetails(Menu menu)
+        private async Task GoToDetails(Menu menu)
         {
             if (menu == null)
                 return;
-            if(menu.Name == "Integrated Services".ToString())
+            if (menu.Name == "Integrated Services".ToString())
             {
                 var response = await AppShell.Current.DisplayActionSheet("Select Option", "cancel", null, "CityTaps", "Others");
                 if (response == "CityTaps")
@@ -107,8 +104,8 @@ namespace SampleMauiMvvmApp.ViewModels
                     DisplayToast("This service is not available");
                     return;
 
-                    var loggedInUsername =  Preferences.Get("username",true);
-                    var userPassword = await Shell.Current.DisplayPromptAsync("Authentication","Please enter your password","cancel","Connect Now".ToString() ,"enter password here...",keyboard:Keyboard.Text);
+                    var loggedInUsername = Preferences.Get("username", true);
+                    var userPassword = await Shell.Current.DisplayPromptAsync("Authentication", "Please enter your password", "cancel", "Connect Now".ToString(), "enter password here...", keyboard: Keyboard.Text);
                     var dictData = new Dictionary<string, object>();
                     dictData.Add("integratedService", response);
                     await AppShell.Current.GoToAsync(nameof(ReflushPage), dictData);
@@ -124,15 +121,14 @@ namespace SampleMauiMvvmApp.ViewModels
             await Shell.Current.GoToAsync(menu.Url?.ToString());
         }
 
-
         [RelayCommand]
-        async Task ConfirmLogout()
+        private async Task ConfirmLogout()
         {
-            bool isConfirm = await Shell.Current.DisplayAlert($"Logout or switch users", $"You are about to logout of {Preferences.Default.Get("username","user")} profile", "OK", "Cancel");
+            bool isConfirm = await Shell.Current.DisplayAlert($"Logout or switch users", $"You are about to logout of {Preferences.Default.Get("username", "user")} profile", "OK", "Cancel");
 
             if (isConfirm.Equals(true))
             {
-                IsBusy= true;
+                IsBusy = true;
                 await Task.Delay(TimeSpan.FromSeconds(3));
                 SecureStorage.Remove("Token");
                 Preferences.Default.Clear();

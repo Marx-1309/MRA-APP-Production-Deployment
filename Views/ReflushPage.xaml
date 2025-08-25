@@ -10,8 +10,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             IconImageSource="reset2_icon.png"
-            Command="{Binding ResetReadingCommand}" 
-            Order="Primary" 
+            Command="{Binding ResetReadingCommand}"
+            Order="Primary"
             Priority="0" />
     </ContentPage.ToolbarItems>
 
@@ -84,7 +84,6 @@
                 <Label Text="Successful syncs are indicated by confirmation alerts/messages shown by the app."
                        FontSize="13"
                        TextColor="#777" />
-
             </VerticalStackLayout>
         </ScrollView>
 
@@ -106,6 +105,6 @@
                            IsRunning="{Binding IsBusy}"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
-                           Color="Red"/>
+                           Color="Red" />
     </Grid>
 </ContentPage>

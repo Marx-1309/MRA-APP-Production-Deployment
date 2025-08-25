@@ -1,6 +1,4 @@
-﻿
-
-namespace SampleMauiMvvmApp.ModelWrappers
+﻿namespace SampleMauiMvvmApp.ModelWrappers
 {
     public partial class CustomerWrapper : ObservableObject
     {
@@ -29,32 +27,39 @@ namespace SampleMauiMvvmApp.ModelWrappers
         {
             Item = item;
         }
+
         #region New Props
         public string Custnmbr { get; set; }
 
         [ObservableProperty]
         public string custname;
 
-
         [ObservableProperty]
         public string state;
 
         [ObservableProperty]
         public string zip;
+
         [ObservableProperty]
         public long phone1;
+
         [ObservableProperty]
         public string custclas;
 
         [ObservableProperty]
         public string modelTitle;
+
         [ObservableProperty]
         public string areaErf;
+
         #endregion
+
         [ObservableProperty]
-        bool isNew;
+        private bool isNew;
+
         [ObservableProperty]
-        bool isUpdated;
+        private bool isUpdated;
+
         public ObservableCollection<ReadingWrapper> Readings { get; set; }
         public object Item { get; }
     }

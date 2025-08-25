@@ -1,10 +1,10 @@
-﻿
-namespace SampleMauiMvvmApp.Mappings.Dto_s
+﻿namespace SampleMauiMvvmApp.Mappings.Dto_s
 {
     public class ReadingDto
     {
         [PrimaryKey, AutoIncrement]
         public int WaterReadingExportDataID { get; set; }
+
         public string CUSTOMER_NUMBER { get; set; }
         public string? AREA { get; set; }
         public string? ERF_NUMBER { get; set; }

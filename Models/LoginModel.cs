@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.Models
+﻿namespace SampleMauiMvvmApp.Models
 {
     [Table("LoginModel")]
     public class LoginModel
@@ -16,8 +15,6 @@ namespace SampleMauiMvvmApp.Models
 }
 
 [JsonSerializable(typeof(List<LoginModel>))]
-
 internal sealed partial class LoginModelContext : JsonSerializerContext
 {
-
 }

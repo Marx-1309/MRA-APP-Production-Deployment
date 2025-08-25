@@ -1,6 +1,4 @@
-﻿
-
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SampleMauiMvvmApp.Models
 {
@@ -8,6 +6,7 @@ namespace SampleMauiMvvmApp.Models
     {
         [PrimaryKey, AutoIncrement]
         public int NoteID { get; set; }
+
         public string NoteTitle { get; set; }
         public string NoteContent { get; set; }
         public string Image { get; set; }

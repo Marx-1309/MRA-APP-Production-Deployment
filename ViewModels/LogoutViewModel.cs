@@ -1,6 +1,4 @@
-﻿
-
-namespace SampleMauiMvvmApp.ViewModels
+﻿namespace SampleMauiMvvmApp.ViewModels
 {
     public partial class LogoutViewModel : BaseViewModel
     {
@@ -9,9 +7,8 @@ namespace SampleMauiMvvmApp.ViewModels
             Logout();
         }
 
-
         [RelayCommand]
-        async void Logout()
+        private async void Logout()
         {
             SecureStorage.Remove("Token");
             App.UserInfo = null;

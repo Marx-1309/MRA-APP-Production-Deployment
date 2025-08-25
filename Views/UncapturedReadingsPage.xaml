@@ -13,7 +13,7 @@
     </Shell.BackButtonBehavior>
 
     <Shell.SearchHandler>
-        <searchHandlers:CustomerSearchHandler 
+        <searchHandlers:CustomerSearchHandler
             Placeholder="Search By Erf,Name or Meter No"
             ShowsResults="True"
             QueryIcon="search"
@@ -24,18 +24,18 @@
                 <DataTemplate x:DataType="model:Reading">
                     <Grid Margin="5" RowDefinitions="Auto" ColumnDefinitions="40,Auto">
                         <Image Grid.Row="0" HorizontalOptions="Start" Grid.Column="0" Source="user" HeightRequest="100" WidthRequest="50" />
-                        <Label Grid.Row="0" HorizontalOptions="Start" Grid.Column="1" 
-                               Text="{Binding SearchBarReadingInfo}" 
-                               FontSize="18" 
-                               HorizontalTextAlignment="Start" 
-                               VerticalTextAlignment="Start"/>
+                        <Label Grid.Row="0" HorizontalOptions="Start" Grid.Column="1"
+                               Text="{Binding SearchBarReadingInfo}"
+                               FontSize="18"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Start" />
                     </Grid>
                 </DataTemplate>
             </searchHandlers:CustomerSearchHandler.ItemTemplate>
         </searchHandlers:CustomerSearchHandler>
     </Shell.SearchHandler>
     <!-- BoxView added here -->
-    
+
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
           RowSpacing="0"
@@ -88,8 +88,5 @@
             Grid.RowSpan="2"
             Grid.ColumnSpan="2">
         </ActivityIndicator>
-
-        
     </Grid>
 </ContentPage>
-

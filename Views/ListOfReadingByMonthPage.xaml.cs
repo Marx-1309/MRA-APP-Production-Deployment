@@ -8,17 +8,13 @@ public partial class ListOfReadingByMonthPage : ContentPage
 {
     //public Customer CustomerId { get; set; }
     public ListOfReadingByMonthPage(MonthViewModel viewModel)
-	{
-		InitializeComponent();
-		this.BindingContext = viewModel;
-	}
+    {
+        InitializeComponent();
+        this.BindingContext = viewModel;
+    }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-
     }
-
-
-
 }

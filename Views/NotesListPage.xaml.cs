@@ -1,21 +1,19 @@
-
-
 namespace SampleMauiMvvmApp.Views;
 
 public partial class NotesListPage : ContentPage
 {
-	public NotesViewModel listViewModel;
+    public NotesViewModel listViewModel;
     public static List<Notes> UnregReadingsListForSearch { get; private set; } = new List<Notes>();
     public ObservableCollection<Notes> Readings { get; set; } = new ObservableCollection<Notes>();
 
     private readonly NotesService _notesService;
 
     public NotesListPage(NotesViewModel _listViewModel)
-	{
-		InitializeComponent();
-		listViewModel = _listViewModel;
-		this.BindingContext = listViewModel;
-	} 
+    {
+        InitializeComponent();
+        listViewModel = _listViewModel;
+        this.BindingContext = listViewModel;
+    }
 
     protected override void OnAppearing()
     {
@@ -40,7 +38,6 @@ public partial class NotesListPage : ContentPage
         }
     }
 
-
     [RelayCommand]
     public async Task AddUpdateUnregReading()
     {
@@ -64,7 +61,6 @@ public partial class NotesListPage : ContentPage
             await GetReadingsList();
         }
     }
-
 
     [RelayCommand]
     public async Task DisplayAction(Notes noteModel)

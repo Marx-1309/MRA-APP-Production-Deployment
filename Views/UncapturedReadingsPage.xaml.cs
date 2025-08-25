@@ -2,13 +2,14 @@ namespace SampleMauiMvvmApp.Views;
 
 public partial class UncapturedReadingsPage : ContentPage
 {
-    ReadingViewModel _viewModel;
+    private ReadingViewModel _viewModel;
+
     public UncapturedReadingsPage(ReadingViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = viewModel;
         this.BindingContext = viewModel;
-	}
+    }
 
     protected override void OnAppearing()
     {

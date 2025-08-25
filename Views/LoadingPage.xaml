@@ -9,8 +9,8 @@
         ColumnDefinitions="*"
         RowDefinitions="*,Auto">
         <Image Source="loading_wallpaper.jpg" Aspect="AspectFill" />
-    <VerticalStackLayout Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="Center">
-        <ActivityIndicator
+        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="Center">
+            <ActivityIndicator
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
             HorizontalOptions="CenterAndExpand"
@@ -19,8 +19,6 @@
             Color="{StaticResource Primary}"
             VerticalOptions="Center" />
             <Label TextColor="Blue" FontSize="Subtitle"  HorizontalOptions="CenterAndExpand"  Text="Please Wait..."></Label>
-        
-    </VerticalStackLayout>
+        </VerticalStackLayout>
     </Grid>
-
 </ContentPage>

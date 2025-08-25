@@ -104,7 +104,6 @@
                                            FontAttributes="Italic"
                                            TextColor="Black" />
                                 </VerticalStackLayout>
-
                             </Grid>
                         </Frame>
                     </DataTemplate>
@@ -129,6 +128,5 @@
                 </CollectionView.EmptyView>
             </CollectionView>
         </RefreshView>
-
     </Grid>
 </ContentPage>

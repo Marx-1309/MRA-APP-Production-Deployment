@@ -1,8 +1,9 @@
-﻿ namespace SampleMauiMvvmApp.Services
+﻿namespace SampleMauiMvvmApp.Services
 {
     public interface IAuthenticationService
     {
         Task<AuthResponseModel> Login(LoginModel loginModel);
+
         Task SetAuthToken();
     }
 
@@ -10,23 +11,23 @@
     {
         //public static string HOST = ListOfUrl.TnWifi;
 
-
-        HttpClient _httpClient;
+        private HttpClient _httpClient;
         public static string BaseAddress = DeviceInfo.Platform == DevicePlatform.Android ? Constants.HOST : Constants.HOST;
+
         public AuthenticationService(DbContext dbContext) : base(dbContext)
         {
             _httpClient = new() { BaseAddress = new Uri(BaseAddress) };
-
         }
 
         public async Task<AuthResponseModel> Login(LoginModel loginModel)
         {
             try
             {
-
                 var response = await _httpClient.PostAsJsonAsync("api/login", loginModel);
                 response.EnsureSuccessStatusCode();
+
                 #region Save Data of the loggedIn User
+
                 //Save Data of the loggedIn User
                 //LoginHistory loggedInUser = new()
                 //{
@@ -34,7 +35,9 @@
                 //    loginDate = DateTime.Now.ToLongDateString(),
                 //};
                 //await dbContext.Database.InsertAsync(loggedInUser);
-                #endregion
+
+                #endregion Save Data of the loggedIn User
+
                 StatusMessage = "Login Successful";
 
                 var responseModel = JsonConvert.DeserializeObject<AuthResponseModel>(await response.Content.ReadAsStringAsync());

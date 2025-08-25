@@ -13,38 +13,37 @@
 
     <Grid BackgroundColor="#FAFAFA">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Image Source="loading_wallpaper.jpg" Aspect="AspectFill" />
-        
 
         <!-- App Logo -->
         <Image Source="kinetic_logo.png"
                Aspect="AspectFit"
                HorizontalOptions="Center"
                VerticalOptions="Center"
-               Grid.Row="0"/>
+               Grid.Row="0" />
 
-        <VerticalStackLayout Spacing="10" Grid.Row="1" >
+        <VerticalStackLayout Spacing="10" Grid.Row="1">
             <Label Text="Welcome!" FontSize="28" TextColor="Gray" HorizontalTextAlignment="Center" />
-            <Label Text="Login to your account" FontSize="18" TextColor="Gray" 
+            <Label Text="Login to your account" FontSize="18" TextColor="Gray"
                    HorizontalTextAlignment="Center" />
         </VerticalStackLayout>
 
-        <StackLayout Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="20" Spacing="20" >
-            <Frame CornerRadius="10" >
-            <Entry Placeholder="Username" PlaceholderColor="DimGray" Keyboard="Email" Text="{Binding Username}" TextColor="Black"  />
+        <StackLayout Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="20" Spacing="20">
+            <Frame CornerRadius="10">
+                <Entry Placeholder="Username" PlaceholderColor="DimGray" Keyboard="Email" Text="{Binding Username}" TextColor="Black" />
             </Frame>
             <Frame CornerRadius="10">
-            <Entry Placeholder="Password" PlaceholderColor="DimGray" IsPassword="True" Text="{Binding Password}" />
+                <Entry Placeholder="Password" PlaceholderColor="DimGray" IsPassword="True" Text="{Binding Password}" />
             </Frame>
             <Button Text="Login" BackgroundColor="#2196F3" TextColor="White" Command="{Binding LoginCommand}" />
         </StackLayout>
-            
+
         <ActivityIndicator
             Grid.Row="2"
             HorizontalOptions="Fill"

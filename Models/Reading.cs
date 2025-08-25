@@ -1,20 +1,12 @@
-﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
-using SampleMauiMvvmApp.ModelWrappers;
-using Bogus.DataSets;
-using Microsoft.Maui;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Xml.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SampleMauiMvvmApp.Models
 {
-
     public class Reading
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
         public int WaterReadingExportDataID { get; set; }
         public int WaterReadingExportID { get; set; }
         public string CUSTOMER_NUMBER { get; set; }
@@ -23,7 +15,7 @@ namespace SampleMauiMvvmApp.Models
         public long? PHONE1 { get; set; } = 0;
         public string ERF_NUMBER { get; set; }
         public string? METER_NUMBER { get; set; } = "";
-        public decimal CURRENT_READING { get; set; } 
+        public decimal CURRENT_READING { get; set; }
         public decimal? PREVIOUS_READING { get; set; }
         public System.Int64 MonthID { get; set; }
         public string? CurrentMonth;
@@ -38,7 +30,6 @@ namespace SampleMauiMvvmApp.Models
         public bool ReadingNotTaken { get; set; }
         public bool? ReadingSync { get; set; }
         public bool? AreaUpdated { get; set; } = false;
-
 
         [NotMapped]
         public bool? IsFlagged { get; set; } = false;
@@ -64,7 +55,6 @@ namespace SampleMauiMvvmApp.Models
 
         [Ignore]
         public int? PercentageChange { get; set; }
-        
 
         public static Reading GenerateNewFromWrapper(ReadingWrapper wrapper)
         {

@@ -1,5 +1,4 @@
-﻿
-namespace SampleMauiMvvmApp.Fakers
+﻿namespace SampleMauiMvvmApp.Fakers
 {
     // https://github.com/bchavez/Bogus
     public class CustomerFaker : Faker<Customer>

@@ -1,17 +1,15 @@
-﻿
-namespace SampleMauiMvvmApp.ViewModels
+﻿namespace SampleMauiMvvmApp.ViewModels
 {
     [QueryProperty("Readings", "Readings")]
     public partial class ReadingsAreaViewModel : BaseViewModel
     {
-
-        DbContext dbContext;
-        ReadingService readingService;
-        MonthService monthService;
-        CustomerService customerService;
+        private DbContext dbContext;
+        private ReadingService readingService;
+        private MonthService monthService;
+        private CustomerService customerService;
 
         [ObservableProperty]
-        List<ReadingWrapper> reading;
+        private List<ReadingWrapper> reading;
 
         public ReadingsAreaViewModel(DbContext _dbContext, ReadingService readingService,
             CustomerService _customerService, MonthService _monthService, IGeolocation geolocation)
@@ -23,11 +21,4 @@ namespace SampleMauiMvvmApp.ViewModels
             this.monthService = _monthService;
         }
     }
-
-   
-
-   
-
-
-
 }

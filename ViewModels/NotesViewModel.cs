@@ -1,15 +1,16 @@
-﻿
-namespace SampleMauiMvvmApp.ViewModels
+﻿namespace SampleMauiMvvmApp.ViewModels
 {
     [QueryProperty(nameof(NoteDetails), "NoteDetails")]
     public partial class NotesViewModel : ObservableObject
     {
         [ObservableProperty]
-        Notes _noteDetails = new Notes();
+        private Notes _noteDetails = new Notes();
+
         public static List<Notes> NotesListForSearch { get; private set; } = new List<Notes>();
         public ObservableCollection<Notes> Notes { get; set; } = new ObservableCollection<Notes>();
 
         private readonly NotesService _notesService;
+
         public NotesViewModel(NotesService notesService)
         {
             _notesService = notesService;
@@ -27,11 +28,9 @@ namespace SampleMauiMvvmApp.ViewModels
                     return;
                 }
                 response = await _notesService.UpdateNote(NoteDetails);
-
             }
             else
             {
-
                 response = await _notesService.AddNote(new Models.Notes
                 {
                     Date = DateTime.Now.ToString("dd MMM yyyy h:mm tt"),
@@ -59,7 +58,6 @@ namespace SampleMauiMvvmApp.ViewModels
                 //}
             }
 
-
             if (response > 0)
             {
                 await Shell.Current.DisplayAlert("Note Info Saved", "Record Saved", "OK");
@@ -80,14 +78,12 @@ namespace SampleMauiMvvmApp.ViewModels
             await Shell.Current.GoToAsync("../");
         }
 
-
-
         [RelayCommand]
-        async Task ClearForm()
+        private async Task ClearForm()
         {
             await Task.Yield();
-            NoteDetails.NoteTitle =string.Empty;
-            NoteDetails.NoteContent =string.Empty;
+            NoteDetails.NoteTitle = string.Empty;
+            NoteDetails.NoteContent = string.Empty;
         }
 
         [RelayCommand]
@@ -107,7 +103,6 @@ namespace SampleMauiMvvmApp.ViewModels
                 NotesListForSearch.AddRange(motesList);
             }
         }
-
 
         [RelayCommand]
         public async Task AddUpdateNote()
@@ -132,7 +127,6 @@ namespace SampleMauiMvvmApp.ViewModels
                 await GetNotesList();
             }
         }
-
 
         [RelayCommand]
         public async Task DisplayAction(Notes note)
@@ -182,6 +176,5 @@ namespace SampleMauiMvvmApp.ViewModels
 
         //    return new List<UnregReadings>();
         //}
-
     }
 }
